@@ -15,6 +15,7 @@ class ActeurController {
             SELECT prenom_personne, nom_personne
             FROM acteur
             LEFT JOIN personne ON personne.id_personne = acteur.id_personne
+            ORDER BY nom_personne 
         ");
 
         require "view/acteur/listActeurs.php";

@@ -23,7 +23,6 @@
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="index.php?action=listFilms">Films</a></li>
-                <li><a href="index.php?action=listSeries">Séries</a></li>
                 <li><a href="index.php?action=listActeurs">Acteurs</a></li>
                 <li><a href="index.php?action=listRealisateurs">Réalisateurs</a></li>
                 <li><a href="index.php?action=myAccount">Mon compte</a></li>

@@ -4,8 +4,8 @@ ob_start();
 
 ?>
 <section>
-
-    <p>Il y a <?= $requete->rowCount() ?> acteurs</p>
+        
+    <p>Il y a <?= $requete->rowCount() ?> réalisateurs</p>
 
     <table>
         <thead>
@@ -16,19 +16,19 @@ ob_start();
         </thead>
         <tbody>
             <?php
-                foreach($requete->fetchAll() as $acteur) { ?>
+                foreach($requete->fetchAll() as $realisateur) { ?>
                     <tr>
-                        <td><?= $acteur["prenom_personne"] ?></td>
-                        <td><?= $acteur["nom_personne"] ?></td>
+                        <td><?= $realisateur["prenom_personne"] ?></td>
+                        <td><?= $realisateur["nom_personne"] ?></td>
                     </tr>
             <?php } ?>
         </tbody>
     </table>
 
-</section>
+</section>    
 <?php
 
-$titre = "liste des acteurs";
-$titre_secondaire = "Liste des acteurs";
+$titre = "liste des réalisateurs";
+$titre_secondaire = "Liste des réalisateurs";
 $contenu = ob_get_clean();
 require "view/template.php";
