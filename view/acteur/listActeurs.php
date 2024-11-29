@@ -1,25 +1,21 @@
 <?php
 
 ob_start();
-
 ?>
 <section>
-
-    <p>Il y a <?= $requete->rowCount() ?> acteurs</p>
+    <p>Il y a <?= count($acteurs) ?> acteurs</p><br>
 
     <table>
         <thead>
             <tr>
-                <th>Prénom</th>
-                <th><?= mb_strtoupper("Nom") ?></th>
+                <th><?= mb_strtoupper("Acteurs") ?></th>
             </tr>
         </thead>
         <tbody>
             <?php
-                foreach($requete->fetchAll() as $acteur) { ?>
+                foreach($acteurs as $acteur) { ?>
                     <tr>
-                        <td><?= $acteur["prenom_personne"] ?></td>
-                        <td><?= $acteur["nom_personne"] ?></td>
+                        <td><a href="index.php?action=detailActeur&id=<?= $acteur['id_acteur']?>"><?= $acteur["acteurs"] ?></td>
                     </tr>
             <?php } ?>
         </tbody>

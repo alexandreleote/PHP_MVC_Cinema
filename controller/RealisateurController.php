@@ -1,30 +1,26 @@
 <?php
 
 namespace Controller;
-use Model\Connect;
+use Model\RealisateurManager;
 
 class RealisateurController {
 
     /**
      * Lister les acteurs
      */
-    public function listRealisateur() {
+    public function listRealisateurs() {
 
-        $pdo = Connect::seConnecter();
-        $requete = $pdo->query("
-            SELECT prenom_personne, UPPER(nom_personne) AS nom_personne
-            FROM realisateur
-            LEFT JOIN personne ON personne.id_personne = realisateur.id_personne
-            ORDER BY nom_personne 
-        ");
+        $realisateurManager = new RealisateurManager();
+        $realisateurs = $realisateurManager->getRealisateurs();
 
         require "view/realisateur/listRealisateurs.php";
     }
 
     public function detRealisateur($id) {
-        $pdo = Connect::seConnecter();
-        $requete = $pdo->prepare("SELECT * FROM realisateur WHERE id_realisateur = :id");
-        $requete->execute(["id" => $id]);
+
+        $realisateurManager = new RealisateurManager();
+        $details = $realisateurManager->getDetRealisateur($id);
+
         require "view/realisateur/detailRealisateur.php";
     }
 }

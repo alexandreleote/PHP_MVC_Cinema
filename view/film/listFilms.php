@@ -1,5 +1,6 @@
 <?php
 
+use Service\Utils;
 ob_start();
 
 ?>
@@ -12,7 +13,8 @@ ob_start();
         <thead>
             <tr>
                 <th>Titre</th>
-                <th>Année de sortie</th>
+                <th><?= mb_strtoupper("Année de sortie") ?></th>
+                <th>FORMAT</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +23,7 @@ ob_start();
                     <tr>
                         <td><a href="index.php?action=detailFilm&id=<?= $film['id_film'] ?>"><?= $film["titre_film"] ?></td>
                         <td><?= $film["annee_sortie"] ?></td>
+                        <td><?= Utils::formatDate($film["date_sortie_film"], '') ?></td>
                     </tr>
             <?php } ?>
         </tbody>

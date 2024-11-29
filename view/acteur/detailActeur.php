@@ -1,29 +1,24 @@
 <?php
 
+use Service\Utils;
 ob_start();
 
 ?>
+<article>
+    <figure>
+        <img src="<?= $details["photo"] ?>" width=350px>
+    </figure>
+    <h3><?= $details["acteur"] ?></h3>
+    <p>Métiers : <?= $details["genre"]?></p>
+    <p>Naissance : <?= Utils::formatDate($details["dateNaissance"], "") ?></p>
+    <p>Âge : <?= $details["age"]?> ans</p>
+    <section>
+        <br>
+        <p><?= $details["bio"]?></p>
 
-<p>Page de : <?= $requete->fetch($id) ?></p>
 
-<table>
-    <thead>
-        <tr>
-            <th>Prénom</th>
-            <th><?php mb_strtoupper("Nom") ?></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach($requete->fetchAll() as $acteur) { ?>
-                <tr>
-                    <td><?= $acteur["prenom_personne"] ?></td>
-                    <td><?= $acteur["nom_personne"] ?></td>
-                </tr>
-        <?php } ?>
-    </tbody>
-</table>
-
+    </section>
+</article>    
 <?php
 
 $titre = "détail des acteurs";

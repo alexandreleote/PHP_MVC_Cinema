@@ -1,20 +1,31 @@
 <?php
 
 ob_start();
-$film = $requeteFilm->fetch()
+
 ?>
 
-<p>Page de : <?= $film['titre_film'] ?></p>
-
-
+<article>
+    <br><h3> <?= $details['titre_film'] ?> </h3><br>
+    <figure>
+        <img src="<?= $details["affiche"] ?>">
+    </figure>
+    <p>Réalisation : 
+        <?php foreach($realisateur as $real) {
+                echo $real['realisateur'].'<br>';
+            };
+        ?></p>
 <?php 
 
-    $casting = $requeteCasting->fetchAll();
+    $result = "<br><p>Casting : </p><br>";
     foreach($casting as $cast) {
-        echo $cast["acteur"]." dans le rôle de ".$cast["nomRole"]."<br>";
+        $result .= $cast["acteur"]." dans le rôle de ".$cast["nomRole"]."<br>";
     }
-
+    echo $result;
 ?>
+</article>
+<aside>
+    <p><?= $details["synopsis"]?></p>
+</aside>
 
 <?php
 

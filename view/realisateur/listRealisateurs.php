@@ -5,21 +5,19 @@ ob_start();
 ?>
 <section>
         
-    <p>Il y a <?= $requete->rowCount() ?> réalisateurs</p>
+    <p>Il y a <?= count($realisateurs) ?> réalisateurs</p><br>
 
     <table>
         <thead>
             <tr>
-                <th>Prénom</th>
-                <th><?= mb_strtoupper("Nom") ?></th>
+                <th><?= mb_strtoupper("réalisateurs") ?></th>
             </tr>
         </thead>
         <tbody>
             <?php
-                foreach($requete->fetchAll() as $realisateur) { ?>
+                foreach($realisateurs as $realisateur) { ?>
                     <tr>
-                        <td><?= $realisateur["prenom_personne"] ?></td>
-                        <td><?= $realisateur["nom_personne"] ?></td>
+                        <td><a href="index.php?action=detailRealisateur&id=<?= $realisateur['id_realisateur'] ?>"><?= $realisateur["realisateur"] ?></td>
                     </tr>
             <?php } ?>
         </tbody>
