@@ -19,8 +19,8 @@ class ActeurController {
     public function detActeur($id) {
         
         $acteurManager = new ActeurManager();
-        $details = $acteurManager->getDetActeurs($id);
-        
+        $details = $acteurManager->getDetActeur($id);
+
         require "view/acteur/detailActeur.php";
     }
 }

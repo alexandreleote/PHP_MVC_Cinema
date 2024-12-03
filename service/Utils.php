@@ -29,7 +29,21 @@ abstract class Utils {
         return $age;
     }
 
-    public static function getMetiers() {
-        
+    public static function getMetiers(array $details) {
+
+        $statut = "";
+        switch($details) {
+            case ($details["id_realisateur"] != null && $details["id_acteur"] != null) : 
+                $statut = ($details["genre"]) == "Homme" ? "Acteur / Réalisateur" : "Actrice / Réalisatrice";
+                break;
+            case ($details["id_acteur"] != null) :
+                $statut = ($details["genre"]) == "Homme" ? "Acteur" : "Actrice";
+                break;
+            case ($details["id_realisateur"] != null) :
+                $statut = ($details["genre"]) == "Homme" ? "Réalisateur" : "Réalisatrice";
+                break;
+        }
+        return $statut;
     }
+
 }

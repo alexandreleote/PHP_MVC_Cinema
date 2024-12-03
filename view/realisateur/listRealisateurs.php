@@ -28,6 +28,6 @@ ob_start();
 
 $metaDescription = "On Air. - Liste des réalisateurs";
 $titre = "liste des réalisateurs";
-$titre_secondaire = "Liste des réalisateurs";
+
 $contenu = ob_get_clean();
 require "view/template.php";

@@ -10,7 +10,6 @@ ob_start();
 
 $metaDescription = "On Air. - La référence cinématographique";
 
-$titre = "Home";
-$titre_secondaire = "Home";
+$titre = " Bienvenue";
 $contenu = ob_get_clean();
 require "template.php";

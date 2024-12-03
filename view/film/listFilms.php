@@ -22,7 +22,6 @@ ob_start();
                 foreach($films as $film) { ?>
                     <tr>
                         <td><a href="index.php?action=detailFilm&id=<?= $film['id_film'] ?>"><?= $film["titre_film"] ?></td>
-                        <td><?= $film["annee_sortie"] ?></td>
                         <td><?= Utils::formatDate($film["date_sortie_film"], '') ?></td>
                     </tr>
             <?php } ?>
@@ -34,7 +33,7 @@ ob_start();
 <?php
 
 $metaDescription = "On Air. - Liste des films";
-$titre = "liste des films";
-$titre_secondaire = "Liste des films";
+
+$titre = "Liste des films";
 $contenu = ob_get_clean();
 require "view/template.php";

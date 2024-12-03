@@ -17,7 +17,7 @@ class FilmManager {
         return $requete->fetchAll();
     }
 
-    public function getDetFilms($id) {
+    public function getDetFilm($id) {
 
         $pdo = Connect::seConnecter();
         

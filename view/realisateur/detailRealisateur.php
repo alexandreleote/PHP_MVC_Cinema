@@ -6,10 +6,10 @@ ob_start();
 ?>
 <article>
     <figure>
-        <img src="<?= $details["photo"] ?>" width=350px height=auto>
+        <img src="<?= $details["photo"] ?>">
     </figure>
     <h3><?= $details["realisateur"] ?></h3>
-    <p>Métiers : <?= $details["genre"]?></p>
+    <p>Métier(s) : <?= Utils::getMetiers($details) ?></p>
     <p>Naissance : <?= Utils::formatDate($details["dateNaissance"], "") ?></p>
     <p>Âge : <?= Utils::getAge($details["dateNaissance"], $details["dateAge"])?> ans</p>
     <section>
@@ -25,7 +25,6 @@ $metaDescription =
     "On Air. - ".$details["realisateur"].
     " : toutes les informations à son sujet. Filmographie, biographie...";
 
-$titre = "liste des réalisateurs";
-$titre_secondaire = "Liste des réalisateurs";
+$titre = $details["realisateur"];
 $contenu = ob_get_clean();
 require "view/template.php";

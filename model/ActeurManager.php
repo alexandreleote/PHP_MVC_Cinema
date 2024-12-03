@@ -19,11 +19,12 @@ class ActeurManager {
         return $requeteList->fetchAll();
     }
 
-    public function getDetActeurs($id) {
+    public function getDetActeur($id) {
 
         $pdo = Connect::seConnecter();
         $requeteDetails = $pdo->prepare(
-            "SELECT a.id_acteur, 
+            "SELECT a.id_acteur,
+                    r.id_realisateur, 
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS acteur, 
                     DATE_FORMAT(p.date_naissance_personne, '%d %M %Y') AS dateNaissance,
                     DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateAge,
@@ -31,7 +32,8 @@ class ActeurManager {
                     photo_personne AS photo,
                     biographie_personne AS bio
             FROM acteur a  
-            LEFT JOIN personne p ON p.id_personne = a.id_personne 
+            LEFT JOIN personne p ON p.id_personne = a.id_personne
+            LEFT JOIN realisateur r ON r.id_personne = p.id_personne 
             WHERE a.id_acteur = :id");
         $requeteDetails->execute(["id" => $id]);
 
