@@ -7,6 +7,7 @@
 :root {
     --color-primary: #f1f1f1;
     --color-secondary: #333;
+    --color-tertiary: #790000;
     --navbar-bg: rgba(120, 0, 0, 0.7);
     --transition-default: ease-in-out 0.5s;
     --spacing-default: 1em;
@@ -25,6 +26,17 @@
 
 body {
     background-color: var(--background-color);
+    color: var(--color-primary);
+}
+
+body a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: var(--transition-default);
+}
+
+body a:hover {
+    color: var(--color-tertiary);
 }
 
 /* Typography */
