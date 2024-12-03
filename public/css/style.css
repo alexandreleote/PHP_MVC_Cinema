@@ -1,29 +1,73 @@
+/* Imports */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;700&display=swap');
+
+/* Variables */
+
+:root {
+    --color-primary: #f1f1f1;
+    --color-secondary: #333;
+    --navbar-bg: rgba(120, 0, 0, 0.7);
+    --transition-default: ease-in-out 0.5s;
+    --spacing-default: 1em;
+    --image-size: 350px;
+    --background-color: #003049;
+}
+
+/* Reset */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
 }
 
-nav {
-    border: 1px solid black;
+body {
+    background-color: var(--background-color);
+}
+
+/* Typography */
+
+h1 {
+    font-family: 'Bebas Neue', cursive;
+}
+
+/* Navbar */
+
+.navbar-menu {
+    padding: var(--spacing-default);
+    background-color: var(--navbar-bg);
     width: 100vw;
 }
 
-nav ul {
+.navbar-menu ul {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
 }
 
-nav li {
+.navbar-menu li {
     list-style: none;
+    text-transform: uppercase;
 }
 
-/* IMAGES */
+.navbar-menu a {
+    text-decoration: none;
+    color: var(--color-primary);
+    font-weight: 700;
+    transition: var(--transition-default);
+}
+
+.navbar-menu a:hover {
+    color: var(--color-secondary);
+}
+
+/* Images */
 
 img {
-    width: 350px;
-    height: 350px;
+    width: var(--image-size);
+    height: var(--image-size);
     object-fit: cover;
 }

@@ -19,7 +19,7 @@
     <!-- HEADER -->
     <header>
         <!-- NAVBAR -->
-        <nav aria-label="Menu principal">
+        <nav aria-label="Menu principal" class="navbar-menu">
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="index.php?action=listFilms">Films</a></li>
