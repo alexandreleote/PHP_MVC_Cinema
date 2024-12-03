@@ -5,6 +5,7 @@ use Controller\HomeController;
 use Controller\CinemaController;
 use Controller\ActeurController;
 use Controller\RealisateurController;
+use Controller\CompteController;
 
 // On include les Class des controllers / managers
 spl_autoload_register(function ($class_name) {
@@ -16,6 +17,7 @@ $ctrlHome = new HomeController();
 $ctrlCinema = new CinemaController();
 $ctrlActeur = new ActeurController();
 $ctrlRealisateur = new RealisateurController();
+$ctrlCompte = new CompteController();
 
 // On vérifie s'il y a bien un id ou non
 $id = (isset($_GET["id"])) ? $_GET["id"] : null;
@@ -32,6 +34,9 @@ if(isset($_GET["action"])) {
         
         case "listRealisateurs" : $ctrlRealisateur->listRealisateurs(); break;
         case "detailRealisateur" : $ctrlRealisateur->detRealisateur($id); break;
+
+        case "monCompte" : $ctrlCompte->selectMovie(); break;
+        case "modifyContent" : $ctrlCompte->modifyGenre($id); break;
 
     }
 } else { // On renvoie la vue Home par défaut si pas d'action
