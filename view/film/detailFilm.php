@@ -29,6 +29,10 @@ ob_start();
 
 <?php
 
+$metaDescription = 
+    "On Air. - ".$details["titre_film"].
+    " , réalisation : ".$real["realisateur"];
+
 $titre = "détails du film";
 $titre_secondaire = "Détails du film";
 $contenu = ob_get_clean();

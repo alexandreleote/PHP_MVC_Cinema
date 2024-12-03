@@ -18,6 +18,17 @@ abstract class Utils {
         return $formattedDate;
     }
 
+    public static function getAge(string $dateNaissance, mixed $dateAge) {
+        $dateNaissance = new \DateTime($dateNaissance);
+        if ($dateAge != null) {
+            $dateAge = new \DateTime($dateAge);
+        } else {
+            $dateAge = new \DateTime('now');
+        }
+        $age = $dateNaissance->diff($dateAge)->y;
+        return $age;
+    }
+
     public static function getMetiers() {
         
     }

@@ -8,6 +8,8 @@ ob_start();
 
 <?php
 
+$metaDescription = "On Air. - La référence cinématographique";
+
 $titre = "Home";
 $titre_secondaire = "Home";
 $contenu = ob_get_clean();

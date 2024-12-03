@@ -11,7 +11,7 @@ ob_start();
     <h3><?= $details["acteur"] ?></h3>
     <p>Métiers : <?= $details["genre"]?></p>
     <p>Naissance : <?= Utils::formatDate($details["dateNaissance"], "") ?></p>
-    <p>Âge : <?= $details["age"]?> ans</p>
+    <p>Âge : <?= Utils::getAge($details["dateNaissance"], $details["dateAge"])?> ans</p>
     <section>
         <br>
         <p><?= $details["bio"]?></p>
@@ -20,6 +20,10 @@ ob_start();
     </section>
 </article>    
 <?php
+
+$metaDescription = 
+    "On Air. - ".$details["acteur"].
+    " : toutes les informations à son sujet. Filmographie, biographie...";
 
 $titre = "détail des acteurs";
 $titre_secondaire = "Détails des acteurs";

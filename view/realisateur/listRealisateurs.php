@@ -26,6 +26,7 @@ ob_start();
 </section>    
 <?php
 
+$metaDescription = "On Air. - Liste des réalisateurs";
 $titre = "liste des réalisateurs";
 $titre_secondaire = "Liste des réalisateurs";
 $contenu = ob_get_clean();

@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="description" content="<?= $metaDescription ?>">
     <!-- CSS -->
     <link rel="stylesheet" href="./public/css/style.css">
 
@@ -42,7 +42,7 @@
     <footer>
         <!-- DESCRIPTION -->
     </footer>
-    <!-- Script -->
+    <!-- SCRIPT -->
     <script src="./public/js/index.js"></script>
 </body>
 </html>
