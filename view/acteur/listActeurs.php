@@ -21,6 +21,7 @@ ob_start();
         </tbody>
     </table>
 
+    <button>Ajouter un acteur</button>
 </section>
 <?php
 

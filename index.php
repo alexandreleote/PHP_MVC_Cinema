@@ -28,6 +28,7 @@ if(isset($_GET["action"])) {
 
         case "listFilms" : $ctrlCinema->listFilms(); break;
         case "detailFilm" : $ctrlCinema->detFilm($id); break;
+        case "editFilm" : $ctrlCinema->modifyFilm($id); break;
 
         case "listActeurs" : $ctrlActeur->listActeurs(); break;
         case "detailActeur" : $ctrlActeur->detActeur($id); break;
@@ -36,7 +37,7 @@ if(isset($_GET["action"])) {
         case "detailRealisateur" : $ctrlRealisateur->detRealisateur($id); break;
 
         case "monCompte" : $ctrlCompte->selectMovie(); break;
-        case "modifyContent" : $ctrlCompte->modifyGenre($id); break;
+        case "modifyContent" : $ctrlCompte->modifyMovie($id); break;
 
     }
 } else { // On renvoie la vue Home par défaut si pas d'action

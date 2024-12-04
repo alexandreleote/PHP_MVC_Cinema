@@ -4,13 +4,16 @@ ob_start();
 
 ?>
 <article>
-
+    <figure>
+        <img src="<?= $films["affiche"] ?>" alt="Affiche du film : <?= $films["titre_film"] ?>">
+    </figure>
+    <h3> <?= $films["titre_film"] ?> </h3>
 
 
 
 </article>
 <aside>
-    <button><a href="index.php?action=monCompte">Retour</a></button>
+   
 </aside>
 <?php
 

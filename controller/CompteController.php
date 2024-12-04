@@ -13,5 +13,11 @@ class CompteController {
         require "view/compte/monCompte.php";
     }
 
-    
+    public function modifyMovie($id) {
+
+        $compteManager = new CompteManager();
+        $films = $compteManager->modifyMovie($id);
+
+        require "view/compte/modifyContent.php";
+    }
 }

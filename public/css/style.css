@@ -83,3 +83,93 @@ img {
     height: var(--image-size);
     object-fit: cover;
 }
+
+/* Buttons */
+
+.btn {
+    padding: 5px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Main */
+
+main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+aside {
+    width: 50vw;
+}
+
+/* Films */
+
+section  {
+    display: flex;
+    width: 50vw;
+}
+
+.film-info {
+    margin: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.film-bio {
+    margin: 0 20px 20px;
+}
+
+.film-details h3 {
+    font-family: "Bebas Neue";
+    font-size: 60px;
+}
+
+.picture-container {
+    margin-left: 20px;
+}
+
+.film-picture {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.modification {
+    display: flex;
+    justify-content: center;
+}
+
+/* Persons */
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+/* Details aside display */
+
+.info-display {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.display-card {
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.display-card p {
+    font-size: 12px;
+}
+
+/* Modification */
+
+.modif-block {
+    border: 2px dotted white;
+    padding: 5px;
+}

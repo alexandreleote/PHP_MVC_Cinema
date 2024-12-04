@@ -29,4 +29,17 @@ class CinemaController {
 
         require "view/film/detailFilm.php";
     }
+
+    /** 
+     * Modification du film
+     */
+    public function modifyFilm($id) {
+
+        $filmManager = new FilmManager();
+        $modifFilm = $filmManager->getDetFilm($id);
+        $modifRealisateur = $filmManager->getRealisateur($id);
+        $modifCasting = $filmManager->getCasting($id);
+
+        require "view/film/editFilm.php";
+    }
 }
