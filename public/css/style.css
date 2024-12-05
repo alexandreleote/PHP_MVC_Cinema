@@ -2,31 +2,38 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;700&display=swap');
 
-/* Variables */
+/* Variables with Fallbacks */
 
 :root {
     --color-primary: #f1f1f1;
     --color-secondary: #333;
     --color-tertiary: #790000;
     --navbar-bg: rgba(120, 0, 0, 0.7);
-    --transition-default: ease-in-out 0.5s;
-    --spacing-default: 1em;
+    --transition-default: 0.5s ease-in-out;
+    --spacing-default: 1rem;
     --image-size: 350px;
     --background-color: #003049;
+    --font-primary: 'Open Sans', Arial, sans-serif;
+    --font-secondary: 'Bebas Neue', Impact, sans-serif;
+    --spacing-sm: 0.625rem;
+    --spacing-md: 1rem;
+    --spacing-xs: 0.3125rem;
+    --border-radius-sm: 5px;
 }
 
-/* Reset */
+/* Responsive Reset */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
 }
 
 body {
-    background-color: var(--background-color);
+    font-family: var(--font-primary);
+    background-color: var(--background-color, #003049);
     color: var(--color-primary);
+    line-height: 1.6;
 }
 
 body a {
@@ -41,69 +48,76 @@ body a:hover {
 
 /* Typography */
 
-h1 {
-    font-family: 'Bebas Neue', cursive;
+h1, .film-details h3 {
+    font-family: var(--font-secondary);
 }
 
-/* Navbar */
+/* Navbar Optimization */
 
 .navbar-menu {
     padding: var(--spacing-default);
     background-color: var(--navbar-bg);
-    width: 100vw;
+    width: 100%;
 }
 
 .navbar-menu ul {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
 }
 
 .navbar-menu li {
     list-style: none;
-    text-transform: uppercase;
 }
 
 .navbar-menu a {
-    text-decoration: none;
-    color: var(--color-primary);
+    text-transform: uppercase;
     font-weight: 700;
-    transition: var(--transition-default);
+    transition: color var(--transition-default);
 }
 
 .navbar-menu a:hover {
     color: var(--color-secondary);
 }
 
-/* Images */
+/* Responsive Images */
 
 img {
-    width: var(--image-size);
-    height: var(--image-size);
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
 }
 
-/* Buttons */
-
-.btn {
-    padding: 5px;
-    cursor: pointer;
-    color: #333;
+.film-picture, .profile-picture {
+    border-radius: 0.625rem;
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
 }
 
-/* Main */
+/* Layout Improvements */
 
 main {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+    
+    .navbar-menu ul {
+        flex-direction: column;
+    }
 }
 
 aside {
     width: 50vw;
 }
-
-/* Films */
 
 section  {
     display: flex;
@@ -120,19 +134,8 @@ section  {
     margin: 0 20px 20px;
 }
 
-.film-details h3 {
-    font-family: "Bebas Neue";
-    font-size: 60px;
-}
-
 .picture-container {
     margin-left: 20px;
-}
-
-.film-picture {
-    width: 250px;
-    height: 250px;
-    border-radius: 10px;
 }
 
 .modification {
@@ -140,31 +143,34 @@ section  {
     justify-content: center;
 }
 
-/* Persons */
+/* Utility Classes */
 
-.profile-picture {
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
+.btn {
+    padding: 0.3125rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* Details aside display */
+.btn:hover {
+    opacity: 0.8;
+}
+
+/* Details Display */
 
 .info-display {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.625rem;
 }
 
 .display-card {
-    border: 1px solid white;
-    display: flex;
-    flex-direction: column;
+    border: 1px solid currentColor;
     text-align: center;
+    padding: 0.5rem;
 }
 
 .display-card p {
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 /* Modification */
@@ -172,4 +178,124 @@ section  {
 .modif-block {
     border: 2px dotted white;
     padding: 5px;
+}
+
+/* Admin Panel Styles */
+.admin-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.admin-actions .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: opacity 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: var(--color-tertiary);
+    color: var(--color-primary);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+}
+
+.admin-actions .btn:hover {
+    opacity: 0.8;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius-sm);
+}
+
+form label {
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    color: var(--color-primary);
+}
+
+form input, 
+form select {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin: 0;
+}
+
+form input[type="submit"] {
+    margin-top: var(--spacing-sm);
+    background-color: var(--color-tertiary);
+    color: var(--color-primary);
+    border: none;
+    cursor: pointer;
+    transition: opacity var(--transition-default);
+}
+
+form input[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+/* Utility Classes */
+.display-card {
+    border: 1px solid currentColor;
+    text-align: center;
+    padding: var(--spacing-sm);
+}
+
+.display-card p {
+    font-size: 0.75rem;
+}
+
+.info-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+/* Modification */
+.modif-block {
+    border: 2px dotted white;
+    padding: var(--spacing-xs);
 }
