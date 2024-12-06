@@ -3,6 +3,7 @@ use Service\Utils;
 ob_start();
 ?>
 
+<!-- Contenu de la page -->
 <section class="list-container">
     <header class="list-header">
         <h1>Liste des Films</h1>
@@ -12,16 +13,19 @@ ob_start();
         </div>
     </header>
 
+    <!-- Liste des Films -->
     <div class="list-grid">
         <?php foreach($films as $film) { ?>
-            <article class="list-card" style="background-image: url('<?= $film["affiche"] ?>');">
-                <a href="index.php?action=detailFilm&id=<?= $film['id_film'] ?>" class="list-card-link">
-                    <div class="list-card-content">
-                        <h2 class="list-card-title"><?= $film["titre_film"] ?></h2>
-                        <p class="list-card-meta"><?= Utils::formatDate($film["sortieFilm"], "") ?></p>
+            <div class="film-card">
+                <div class="overlay"></div>
+                <a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>">
+                    <img src="<?= $film["affiche"] ?>" alt="Affiche de <?= $film["titre_film"] ?>" class="film-poster">
+                    <div class="film-info">
+                        <h3><?= $film["titre_film"] ?></h3>
+                        <p class="year"><?= Utils::formatDate($film["sortieFilm"], "") ?></p>
                     </div>
                 </a>
-            </article>
+            </div>
         <?php } ?>
     </div>
 </section>

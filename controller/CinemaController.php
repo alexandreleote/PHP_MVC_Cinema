@@ -6,9 +6,7 @@ use Model\FilmManager;
 
 class CinemaController {
 
-    /**
-     * Lister les films
-     */
+    /* Lister les films */
     public function listFilms() {
 
         $filmManager = new FilmManager();
@@ -17,9 +15,7 @@ class CinemaController {
         require "view/film/listFilms.php";
     }
 
-    /** 
-     * Détail du film
-     */
+    /* Détails du film */
     public function detFilm($id) {
         
         $filmManager = new FilmManager();
@@ -30,9 +26,7 @@ class CinemaController {
         require "view/film/detailFilm.php";
     }
 
-    /** 
-     * Modification du film
-     */
+    /* Modifier un film */
     public function modifyFilm($id) {
 
         $filmManager = new FilmManager();

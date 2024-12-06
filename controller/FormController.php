@@ -1,42 +1,31 @@
 <?php
 
 namespace Controller;
-use Model\CompteManager;
 use Model\FormManager;
 
 class FormController {
     
+    /* Admin panel */
     public function adminPanel() {
         $formManager = new FormManager();
-        
-        $genres = $formManager->getAllGenres();
         
         require "view/admin/adminPanel.php";
     }
     
+    /* Ajouter un genre */
     public function addGenre() {
         if (isset($_POST["nomGenre"])) {
             $formManager = new FormManager();
-            $nomGenre = filter_input(INPUT_POST, "nomGenre", FILTER_SANITIZE_SPECIAL_CHARS);
+            $nomGenre = filter_input(INPUT_POST, "nomGenre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             
             if ($nomGenre) {
                 $formManager->addGenre($nomGenre);
             }
         }
-
-        $formManager = new FormManager();
-        $genres = $formManager->getAllGenres();
-
         require "view/admin/addGenre.php";
     }
-    
-    public function addFilmPage() {
-        $formManager = new FormManager();
-        $realisateurs = $formManager->getAllRealisateurs();
-        $genres = $formManager->getAllGenres();
-        require 'view/admin/addFilm.php';
-    }
 
+    /* Ajouter un film */
     public function addFilm() {
         $formManager = new FormManager();
         $genres = $formManager->getAllGenres();
@@ -65,5 +54,4 @@ class FormController {
 
         require "view/admin/addFilm.php";
     }
-    
 }

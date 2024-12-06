@@ -3,6 +3,7 @@ use Service\Utils;
 ob_start();
 ?>
 
+<!-- Contenu de la page -->
 <div class="container">
     <div class="actor-content">
         <!-- Premier bloc : Informations personnelles -->
@@ -33,6 +34,7 @@ ob_start();
             <div class="filmography-grid">
                 <?php foreach($filmographie as $film) { ?>
                     <div class="film-card">
+                        <div class="overlay"></div>
                         <a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>">
                             <img src="<?= $film["affiche"] ?>" alt="Affiche de <?= $film["titre_film"] ?>" class="film-poster">
                             <div class="film-info">
@@ -47,6 +49,7 @@ ob_start();
     </div>
 </div>
 
+<!-- Bouton de modification -->
 <aside class="sticky-edit-button">
     <a href="index.php?action=editRealisateur&id=<?= $details["id_realisateur"] ?>" class="btn-primary">Modifier</a>
 </aside>

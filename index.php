@@ -25,19 +25,29 @@ $id = (isset($_GET["id"])) ? $_GET["id"] : null;
 // On vérifie l'action de l'url pour renvoyer la bonne vue
 if(isset($_GET["action"])) {
     switch ($_GET["action"]) {
+        /* Views Cinema */
         case "listFilms" : $ctrlCinema->listFilms(); break;
         case "detailFilm" : $ctrlCinema->detFilm($id); break;
         case "editFilm" : $ctrlCinema->modifyFilm($id); break;
-        
+
+        /* Views Acteur */
         case "listActeurs" : $ctrlActeur->listActeurs(); break;
         case "detailActeur" : $ctrlActeur->detActeur($id); break;
         case "editActeur" : $ctrlActeur->modifyActeur($id); break;
+        case "modifyActeur":
+                $ctrlActeur->modifyActeur($id);
+                break;
+        case "updateActeur":
+                $ctrlActeur->updateActeur($id);
+                break;
         case "deleteActeur" : $ctrlActeur->deleteActeur($id); break;
         
+        /* Views Realisateur */
         case "listRealisateurs" : $ctrlRealisateur->listRealisateurs(); break;
         case "detailRealisateur" : $ctrlRealisateur->detRealisateur($id); break;
         case "editRealisateur" : $ctrlRealisateur->modifyRealisateur($id); break;
 
+        /* Views Admin */
         case "adminPanel" : $ctrlForm->adminPanel(); break;
         case "addGenre" : $ctrlForm->addGenre(); break;
         case "addFilm" : $ctrlForm->addFilm(); break;

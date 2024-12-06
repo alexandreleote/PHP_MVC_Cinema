@@ -1,3 +1,4 @@
+/* Initialisation des cartes */
 export function initializeCards() {
     const cards = document.querySelectorAll('.list-card');
     cards.forEach(card => {

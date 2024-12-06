@@ -4,6 +4,7 @@ namespace Service;
 
 abstract class Utils {
 
+    /* Formater la date en français */
     public static function formatDate(string $date, string $pattern) {
         $dateObject = new \DateTime($date);
         $formatter = new \IntlDateFormatter(
@@ -18,6 +19,7 @@ abstract class Utils {
         return $formattedDate;
     }
 
+    /* Calculer l'âge de la personne */
     public static function getAge(string $dateNaissance, mixed $dateAge) {
         $dateNaissance = new \DateTime($dateNaissance);
         if ($dateAge != null) {
@@ -29,6 +31,7 @@ abstract class Utils {
         return $age;
     }
 
+    /* Retourner les métiers de l'acteur ou du realisateur */
     public static function getMetiers(array $details) {
 
         $statut = "";

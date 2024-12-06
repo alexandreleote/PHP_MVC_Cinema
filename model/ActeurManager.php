@@ -5,6 +5,7 @@ use Model\Connect;
 
 class ActeurManager {
 
+    /* Récupérer la liste des acteurs */
     public function getActeurs() {
 
         $pdo = Connect::seConnecter();
@@ -21,29 +22,44 @@ class ActeurManager {
         return $requeteList->fetchAll();
     }
 
+    /* Récupérer les details de l'acteur */
     public function getDetActeur($id) {
 
         $pdo = Connect::seConnecter();
         $requeteDetails = $pdo->prepare(
             "SELECT a.id_acteur,
-                    r.id_realisateur, 
+                    r.id_realisateur,
+                    p.nom_personne,
+                    p.prenom_personne,
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS acteur, 
-                    DATE_FORMAT(p.date_naissance_personne, '%d %M %Y') AS dateNaissance,
-                    DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateMort,
-                    DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateAge,
+                    p.date_naissance_personne AS dateNaissance,
+                    p.date_mort_personne AS dateMort,
+                    p.date_mort_personne AS dateAge,
                     genre_personne AS genre,
                     photo_personne AS photo,
-                    biographie_personne AS bio
+                    biographie_personne AS bio,
+                    CASE WHEN a.id_acteur IS NOT NULL THEN 'acteur' END as metier_acteur,
+                    CASE WHEN r.id_realisateur IS NOT NULL THEN 'realisateur' END as metier_realisateur
             FROM acteur a  
             LEFT JOIN personne p ON p.id_personne = a.id_personne
             LEFT JOIN realisateur r ON r.id_personne = p.id_personne 
             WHERE a.id_acteur = :id");
 
         $requeteDetails->execute(["id" => $id]);
-
-        return $requeteDetails->fetch();
+        $result = $requeteDetails->fetch();
+        
+        // Préparer le tableau des métiers
+        $result['metiers'] = array_filter([
+            $result['metier_acteur'],
+            $result['metier_realisateur']
+        ]);
+        
+        unset($result['metier_acteur'], $result['metier_realisateur']);
+        
+        return $result;
     }
 
+    /* Récupérer la filmographie de l'acteur */
     public function getFilmographie($id) {
 
         $pdo = Connect::seConnecter();
@@ -66,6 +82,71 @@ class ActeurManager {
         return $requeteFilmographie->fetchAll();
     }
 
+    /* Mettre à jour un acteur */
+    public function updateActeur($id, $data) {
+        $pdo = Connect::seConnecter();
+        
+        try {
+            $pdo->beginTransaction();
+            
+            // Mise à jour des informations de la personne
+            $requeteUpdatePersonne = $pdo->prepare(
+                "UPDATE personne p
+                INNER JOIN acteur a ON a.id_personne = p.id_personne
+                SET nom_personne = :nom,
+                    prenom_personne = :prenom,
+                    genre_personne = :genre,
+                    date_naissance_personne = :dateNaissance,
+                    date_mort_personne = :dateMort,
+                    photo_personne = :photo,
+                    biographie_personne = :bio
+                WHERE a.id_acteur = :id"
+            );
+            
+            $requeteUpdatePersonne->execute([
+                'nom' => $data['nom'],
+                'prenom' => $data['prenom'],
+                'genre' => $data['genre'],
+                'dateNaissance' => $data['dateNaissance'],
+                'dateMort' => $data['dateMort'] ?: null,
+                'photo' => $data['photo'],
+                'bio' => $data['bio'],
+                'id' => $id
+            ]);
+            
+            // Récupérer l'id_personne
+            $requeteIdPersonne = $pdo->prepare(
+                "SELECT p.id_personne 
+                FROM acteur a
+                INNER JOIN personne p ON p.id_personne = a.id_personne
+                WHERE a.id_acteur = :id"
+            );
+            $requeteIdPersonne->execute(['id' => $id]);
+            $idPersonne = $requeteIdPersonne->fetchColumn();
+            
+            // Gérer les métiers
+            // Supprimer les anciens rôles
+            $pdo->prepare("DELETE FROM realisateur WHERE id_personne = ?")->execute([$idPersonne]);
+            
+            // Ajouter les nouveaux rôles
+            if (isset($data['metiers']) && is_array($data['metiers'])) {
+                foreach ($data['metiers'] as $metier) {
+                    if ($metier === 'realisateur') {
+                        $pdo->prepare("INSERT INTO realisateur (id_personne) VALUES (?)")->execute([$idPersonne]);
+                    }
+                }
+            }
+            
+            $pdo->commit();
+            return true;
+            
+        } catch (\Exception $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
+    }
+
+    /* Supprimer un acteur */
     public function delActeur($id) {
         $pdo = Connect::seConnecter();
         
