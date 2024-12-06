@@ -20,7 +20,25 @@ class ActeurController {
         
         $acteurManager = new ActeurManager();
         $details = $acteurManager->getDetActeur($id);
+        $filmographie = $acteurManager->getFilmographie($id);
 
         require "view/acteur/detailActeur.php";
+    }
+
+    public function modifyActeur($id) {
+
+        $acteurManager = new ActeurManager();
+        $details = $acteurManager->getDetActeur($id);
+        $filmographie = $acteurManager->getFilmographie($id);
+
+        require "view/acteur/editActeur.php";
+    }
+
+    public function deleteActeur($id) {
+        $acteurManager = new ActeurManager();
+        if($acteurManager->delActeur($id)) {
+            header("Location: index.php?action=listActeurs");
+            exit();
+        }
     }
 }

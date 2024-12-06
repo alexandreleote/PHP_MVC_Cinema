@@ -31,9 +31,12 @@ if(isset($_GET["action"])) {
         
         case "listActeurs" : $ctrlActeur->listActeurs(); break;
         case "detailActeur" : $ctrlActeur->detActeur($id); break;
+        case "editActeur" : $ctrlActeur->modifyActeur($id); break;
+        case "deleteActeur" : $ctrlActeur->deleteActeur($id); break;
         
         case "listRealisateurs" : $ctrlRealisateur->listRealisateurs(); break;
         case "detailRealisateur" : $ctrlRealisateur->detRealisateur($id); break;
+        case "editRealisateur" : $ctrlRealisateur->modifyRealisateur($id); break;
 
         case "adminPanel" : $ctrlForm->adminPanel(); break;
         case "addGenre" : $ctrlForm->addGenre(); break;

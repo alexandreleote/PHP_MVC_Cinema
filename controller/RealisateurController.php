@@ -20,7 +20,8 @@ class RealisateurController {
 
         $realisateurManager = new RealisateurManager();
         $details = $realisateurManager->getDetRealisateur($id);
-
+        $filmographie = $realisateurManager->getFilmographie($id);
+        
         require "view/realisateur/detailRealisateur.php";
     }
 }

@@ -42,4 +42,20 @@ class RealisateurManager {
 
         return $requeteDetails->fetch();
     }
+
+    public function getFilmographie($id) {
+        $pdo = Connect::seConnecter();
+        $requeteFilmographie = $pdo->prepare(
+            "SELECT 
+                f.id_film,
+                f.titre_film, 
+                f.affiche_film AS affiche, 
+                YEAR(f.date_sortie_film) AS annee_sortie
+            FROM film f
+            WHERE f.id_realisateur = :id
+            ORDER BY annee_sortie DESC");
+        
+        $requeteFilmographie->execute(["id" => $id]);
+        return $requeteFilmographie->fetchAll();
+    }
 }
