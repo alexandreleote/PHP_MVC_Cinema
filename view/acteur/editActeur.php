@@ -3,21 +3,19 @@ use Service\Utils;
 ob_start();
 ?>
 
-<aside class="sticky-edit-button">
-    <a href="index.php?action=editActeur&id=<?= $details["id_acteur"] ?>" class="btn-primary">Modifier l'Acteur</a>
-</aside>
+<div class="sticky-delete-button">
+    <a href="index.php?action=deleteActeur&id=<?= $details["id_acteur"] ?>" class="btn-primary">Supprimer l'Acteur</a>
+</div>
 
-<article class="detail-container">
-    <header class="detail-header">
-        <h1><?= $details["acteur"] ?></h1>
-    </header>
-
+<div class="detail-container">
     <div class="detail-content">
-        <aside class="detail-image-container">
+        <div class="detail-image-container">
             <img src="<?= $details["photo"] ?>" alt="Photo de <?= $details["acteur"] ?>" class="detail-image">
-        </aside>
+        </div>
         
-        <section class="detail-info">
+        <div class="detail-info">
+            <h1><?= $details["acteur"] ?></h1>
+            
             <div class="detail-meta">
                 <p>Métier(s) : <?= Utils::getMetiers($details) ?></p>
                 <p>Naissance : <?= Utils::formatDate($details["dateNaissance"], "") ?></p>
@@ -27,17 +25,16 @@ ob_start();
                 <p>Âge : <?= Utils::getAge($details["dateNaissance"], $details["dateAge"])?> ans</p>
             </div>
 
-            <section class="detail-bio">
-                <h2>Biographie</h2>
+            <div class="detail-bio">
                 <p><?= $details["bio"]?></p>
-            </section>
-        </section>
+            </div>
+        </div>
     </div>
-</article>
+</div>
 
 <?php
-$titre = $details["acteur"];
 $metaDescription = "On Air. - ".$details["acteur"]." : toutes les informations à son sujet. Filmographie, best-sellers...";
+$titre = $details["acteur"];
 $contenu = ob_get_clean();
 require "view/template.php";
 ?>

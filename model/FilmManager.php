@@ -8,13 +8,14 @@ class FilmManager {
     public function getFilms() {
 
         $pdo = Connect::seConnecter();
+        
         $requete = $pdo->prepare(
             "SELECT f.id_film, f.titre_film, 
-                YEAR(f.date_sortie_film) AS annee_sortie, 
-                f.date_sortie_film, 
+                f.date_sortie_film AS sortieFilm, 
+                f.affiche_film AS affiche,
                 f.id_film
             FROM film f
-            ORDER BY annee_sortie DESC");
+            ORDER BY sortieFilm DESC");
         $requete->execute();
 
         return $requete->fetchAll();

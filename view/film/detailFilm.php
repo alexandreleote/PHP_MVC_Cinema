@@ -4,73 +4,59 @@ ob_start();
 
 ?>
 
-<section>
-    <article class="film-container">
+<div class="container">
+    <div class="film-detail">
         <div class="film-info">
-            <div class="film-details">
-                <h3> <?= $details['titre_film'] ?> </h3>
-                <p>Note : </p>
-                <p><?= $details["genre"] ?></p>
-                <p>Durée : <?= $details["duree"] ?></p>
+            <h1 class="film-title"><?= $details['titre_film'] ?></h1>
+            
+            <div class="film-meta">
+                <span><?= $details["genre"] ?></span>
+                <span>Durée : <?= $details["duree"] ?> </span>
             </div>
-            <figure class="picture-container">
-                <img src="<?= $details["affiche"] ?>" 
-                    alt="Affiche du film <?= $details["titre_film"]?>"  
-                    class="film-picture">
-            </figure>
-        </div>
-        <div class="film-bio">
-            <p><?= $details["synopsis"]?></p>
-        </div>
-        <div class="modification">
-            <button>
-                <a href="index.php?action=editFilm&id=<?= $details["id_film"] ?>" class="btn">Mettre à jour la fiche</a>
-            </button>
-        </div>
-    </article>
-    <aside>
-        <div id="realisation">
-            <p>Réalisation :</p>
-            <div class="info-display">
-                <?php foreach($realisateur as $real) { ?>
-                    <div class="display-card">  
-                        <figure>
-                            <img src="<?= $real['photo'] ?>" 
-                            alt="Photo de <?= $real["realisateur"]?>"
-                            class="profile-picture">
-                        </figure>
-                        <h4><?= $real['realisateur'] ?></h4>
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-        <div id="casting">
-            <p>Casting : </p>
-            <div class="info-display">
-                <?php foreach($casting as $cast) { ?>
-                    <div class="display-card"> 
-                        <figure>
-                            <img src="<?= $cast['photo'] ?>" 
-                            alt="Photo de <?= $cast['acteur'] ?>"
-                            class="profile-picture">
-                        </figure>
-                        <h4><?= $cast['acteur'] ?></h4>
-                        <p>Rôle : <?= $cast['nomRole']?></p>
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-    </aside>
-</section>
 
+            <p class="film-synopsis"><?= $details["synopsis"]?></p>
+        </div>
+
+        <div class="film-side">
+            <img src="<?= $details["affiche"] ?>" 
+                alt="Affiche du film <?= $details["titre_film"]?>"  
+                class="film-poster">
+
+            <div class="film-crew">
+                <h2>Réalisation</h2>
+                <div class="crew-grid">
+                    <?php foreach($realisateur as $real) { ?>
+                        <div class="crew-item">
+                            <img src="<?= $real['photo'] ?>" 
+                                alt="Photo de <?= $real["realisateur"]?>"
+                                class="crew-image">
+                            <h3><?= $real['realisateur'] ?></h3>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="film-cast">
+                <h2>Casting</h2>
+                <div class="cast-grid">
+                    <?php foreach($casting as $cast) { ?>
+                        <div class="cast-item">
+                            <img src="<?= $cast['photo'] ?>" 
+                                alt="Photo de <?= $cast["acteur"]?>"
+                                class="cast-image">
+                            <h3><?= $cast['acteur'] ?></h3>
+                            <p>Rôle : <?= $cast['nomRole'] ?></p>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
-
-$metaDescription = 
-    "On Air. - ".$details["titre_film"].
-    " , réalisation : ".$real["realisateur"];
-
-$titre = "détails du film";
-
+$titre = $details["titre_film"];
+$metaDescription = "Détails du film " . $details["titre_film"];
 $contenu = ob_get_clean();
 require "view/template.php";
+?>

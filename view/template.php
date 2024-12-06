@@ -1,25 +1,18 @@
 <?php
     /* Require needed */
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= $metaDescription ?>">
-    <!-- CSS -->
     <link rel="stylesheet" href="./public/css/style.css">
-
-    <!-- TITLE -->
-    <title>OnAir. - <?= $titre ?></title> <!-- Need to correctly write the variable getting fetched to work -->
+    <title>OnAir. - <?= $titre ?></title>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <!-- NAVBAR -->
-        <nav aria-label="Menu principal" class="navbar-menu">
+    <header class="site-header">
+        <nav class="navbar-menu" aria-label="Menu principal">
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="index.php?action=listFilms">Films</a></li>
@@ -29,18 +22,15 @@
             </ul>
         </nav>     
     </header>
-    <!-- MAIN -->
-    <main>
-        <div id="contenu">
-            <!-- CONTENT -->
-            <?= $contenu ?>
-        </div>
+
+    <main id="main-content">
+        <?= $contenu ?>
     </main>
-    <!-- FOOTER -->
-    <footer>
-        <!-- DESCRIPTION -->
+
+    <footer class="site-footer">
+        <p>&copy; <?= date('Y') ?> OnAir. Tous droits réservés.</p>
     </footer>
-    <!-- SCRIPT -->
-    <script src="./public/js/index.js"></script>
+
+    <script type="module" src="./public/js/index.js"></script>
 </body>
 </html>
