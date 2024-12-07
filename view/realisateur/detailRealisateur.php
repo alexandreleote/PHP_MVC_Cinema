@@ -4,59 +4,71 @@ ob_start();
 ?>
 
 <!-- Contenu de la page -->
-<div class="container">
-    <div class="actor-content">
-        <!-- Premier bloc : Informations personnelles -->
-        <div class="person-info-block">
-            <div class="person-main-info">
-                <img src="<?= $details["photo"] ?>" alt="Photo de <?= $details["realisateur"] ?>" class="person-image">
-                <div class="person-details">
-                    <h1><?= $details["realisateur"] ?></h1>
-                    <p class="person-meta">Métier(s) : <?= Utils::getMetiers($details) ?></p>
-                    <p class="person-meta">Naissance : <?= Utils::formatDate($details["dateNaissance"], "") ?></p>
-                    <?php if (!empty($details["dateMort"])) { ?>
-                        <p class="person-meta">Décès : <?= Utils::formatDate($details["dateMort"], "") ?></p>
-                    <?php } ?>
-                    <p class="person-meta">Âge : <?= Utils::getAge($details["dateNaissance"], $details["dateAge"])?> ans</p>
-                </div>
+<div class="detail-header">
+    <img src="<?= $details["photo"] ?>" alt="<?= $details["realisateur"] ?>" class="detail-image">
+    
+    <div class="detail-info">
+        <h1 class="detail-title"><?= $details["realisateur"] ?></h1>
+        
+        <div class="detail-meta">
+            <div class="meta-item">
+                <span class="meta-label">Date de naissance:</span>
+                <span><?= Utils::formatDate($details["dateNaissance"], "") ?></span>
             </div>
-            <?php if (!empty($details["bio"])) { ?>
-                <div class="person-bio">
-                    <h2>Biographie</h2>
-                    <p><?= $details["bio"]?></p>
-                </div>
+            <?php if ($details["dateMort"]) { ?>
+            <div class="meta-item">
+                <span class="meta-label">Date de décès:</span>
+                <span><?= Utils::formatDate($details["dateMort"], "") ?></span>
+            </div>
             <?php } ?>
-        </div>
-
-        <!-- Deuxième bloc : Filmographie -->
-        <div class="filmography-block">
-            <h2>Filmographie</h2>
-            <div class="filmography-grid">
-                <?php foreach($filmographie as $film) { ?>
-                    <div class="film-card">
-                        <div class="overlay"></div>
-                        <a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>">
-                            <img src="<?= $film["affiche"] ?>" alt="Affiche de <?= $film["titre_film"] ?>" class="film-poster">
-                            <div class="film-info">
-                                <h3><?= $film["titre_film"] ?></h3>
-                                <p class="year"><?= $film["annee_sortie"] ?></p>
-                            </div>
-                        </a>
-                    </div>
-                <?php } ?>
+            <div class="meta-item">
+                <span class="meta-label">Métier(s):</span>
+                <span><?= Utils::getMetiers($details) ?></span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Âge:</span>
+                <span><?= Utils::getAge($details["dateNaissance"], $details["dateMort"])?> ans</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Nombre de films:</span>
+                <span><?= count($filmographie) ?> film<?= count($filmographie) > 1 ? 's' : '' ?></span>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bouton de modification -->
-<aside class="sticky-edit-button">
-    <a href="index.php?action=editRealisateur&id=<?= $details["id_realisateur"] ?>" class="btn-primary">Modifier</a>
-</aside>
+<?php if (!empty($details["bio"])) { ?>
+    <section aria-label="Biographie">
+        <h2>Biographie</h2>
+        <p><?= $details["bio"] ?></p>
+    </section>
+<?php } ?>
+
+<div class="filmography">
+    <h2 class="filmography-title">Filmographie en tant que réalisateur</h2>
+    <div class="cards-grid">
+        <?php foreach($filmographie as $film) { ?>
+        <div class="card">
+            <img src="<?= $film["affiche"] ?>" alt="<?= $film["titre_film"] ?>" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title"><?= $film["titre_film"] ?></h3>
+                <div class="card-meta">
+                    <span class="card-year"><?= Utils::formatDate($film["annee_sortie"], "") ?></span>
+                </div>
+            </div>
+            <a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>" class="card-link"></a>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+<button aria-label="Actions sur le réalisateur">
+    <a href="index.php?action=editRealisateur&id=<?= $details["id_realisateur"] ?>" role="button">Modifier</a>
+</button>
 
 <?php
-$titre = $details["realisateur"];
-$metaDescription = "On Air. - ".$details["realisateur"]." : toutes les informations à son sujet. Filmographie, biographie...";
+$titre = "Détail du réalisateur - " . $details["realisateur"];
+$metaDescription = "On Air. - Découvrez la filmographie complète de " . $details["realisateur"];
 $contenu = ob_get_clean();
 require "view/template.php";
 ?>

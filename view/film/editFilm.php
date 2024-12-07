@@ -3,58 +3,97 @@
 ob_start();
 
 ?>
-
 <section>
-    <article class="film-container modif-block">
-        <div class="film-info modif-block">
-            <div class="film-details modif-block">
-                <h3> <?= $modifFilm['titre_film'] ?> </h3>
-                <p>Note : </p>
-                <p>Genres : </p>
-                <?php foreach($genres as $genre) {?>
-                    <input type="checkbox" id="<?= $genre['nom_genre']?>" name="<?= $genre['nom_genre']?>">
-                    <label for="<?= $genre['nom_genre']?>"><?= $genre['nom_genre']?></label>
-                <?php } ?>
-                <p>Durée : <?= $modifFilm["duree"] ?></p>
+    <article>
+        <header>
+            <h1>Modifier <span><?= $modifFilm["titre_film"] ?></span></h1>
+        </header>
+
+        <form action="index.php?action=updateFilm&id=<?= $modifFilm["id_film"] ?>" method="POST">
+            <div role="group" aria-label="Informations principales">
+                <!-- Affiche -->
+                <figure>
+                    <img src="<?= $modifFilm["affiche"] ?>" alt="Affiche de <?= $modifFilm["titre_film"] ?>">
+                    <figcaption>
+                        <label for="affiche">Affiche (URL) :</label>
+                        <input type="url" id="affiche" name="affiche" value="<?= $modifFilm["affiche"] ?>" required>
+                    </figcaption>
+                </figure>
+
+                <!-- Informations du film -->
+                <fieldset>
+                    <legend>Détails du film</legend>
+
+                    <div role="group">
+                        <label for="titre">Titre :</label>
+                        <input type="text" id="titre" name="titre" value="<?= $modifFilm["titre_film"] ?>" required>
+                    </div>
+
+                    <div role="group">
+                        <label for="dateSortie">Date de sortie :</label>
+                        <input type="date" id="dateSortie" name="dateSortie" value="<?= $modifFilm["sortieFilm"] ?>" required>
+                    </div>
+
+                    <div role="group">
+                        <label for="duree">Durée (en minutes) :</label>
+                        <input type="number" id="duree" name="duree" value="<?= $modifFilm["duree"] ?>" min="1" required>
+                    </div>
+
+                    <div role="group">
+                        <label for="note">Note :</label>
+                        <input type="number" id="note" name="note" value="<?= $modifFilm["note"] ?>" min="0" max="5" step="0.1" required>
+                    </div>
+
+                    <div role="group">
+                        <label for="synopsis">Synopsis :</label>
+                        <textarea id="synopsis" name="synopsis" rows="5" required><?= $modifFilm["synopsis"] ?></textarea>
+                    </div>
+                </fieldset>
             </div>
-            <figure class="picture-container">
-                <img src="<?= $modifFilm["affiche"] ?>" 
-                    alt="Affiche du film <?= $modifFilm["titre_film"]?>"  
-                    class="film-picture">
-            </figure>
-        </div>
-        <div class="film-bio">
-            <p><?= $modifFilm["synopsis"]?></p>
-        </div>
-        <div class="modification">
-            <p>Form pour la bio</p>
-        </div>
+
+            <div role="group" aria-label="Genres">
+                <fieldset>
+                    <legend>Genres</legend>
+                    <?php foreach($genres as $genre) {?>
+                        <div role="group">
+                            <input type="checkbox" id="<?= $genre['nom_genre']?>" name="<?= $genre['nom_genre']?>">
+                            <label for="<?= $genre['nom_genre']?>"><?= $genre['nom_genre']?></label>
+                        </div>
+                    <?php } ?>
+                </fieldset>
+            </div>
+
+            <div role="group" aria-label="Actions">
+                <button type="submit">Enregistrer les modifications</button>
+                <button type="reset">Réinitialiser</button>
+            </div>
+        </form>
     </article>
-    <aside class="modif-block">
-        <div class="modif-block" id="realisation">
+    <aside>
+        <div id="realisation">
             <p>Réalisation :</p>
-            <div class="info-display">
+            <div>
                 <?php foreach($modifRealisateur as $modifReal) { ?>
-                    <div class="display-card">  
+                    <div>  
                         <figure>
                             <img src="<?= $modifReal['photo'] ?>" 
                             alt="Photo de <?= $modifReal["realisateur"]?>"
-                            class="profile-picture">
+                            >
                         </figure>
                         <h4><?= $modifReal['realisateur'] ?></h4>
                     </div>
                 <?php } ?>
             </div>
         </div>
-        <div class="modif-block" id="casting">
+        <div id="casting">
             <p>Casting : </p>
-            <div class="info-display">
+            <div>
                 <?php foreach($modifCasting as $modifCast) { ?>
-                    <div class="display-card"> 
+                    <div> 
                         <figure>
                             <img src="<?= $modifCast['photo'] ?>" 
                             alt="Photo de <?= $modifCast['acteur'] ?>"
-                            class="profile-picture">
+                            >
                         </figure>
                         <h4><?= $modifCast['acteur'] ?></h4>
                         <p>Rôle : <?= $modifCast['nomRole']?></p>
@@ -64,6 +103,9 @@ ob_start();
         </div>
     </aside>
 </section>
+<nav aria-label="Actions sur le film">
+    <a href="index.php?action=deleteFilm&id=<?= $modifFilm["id_film"] ?>" role="button">Supprimer</a>
+</nav>
 <?php
 
 $metaDescription = 

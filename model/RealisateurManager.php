@@ -11,7 +11,8 @@ class RealisateurManager {
         $requeteList = $pdo->prepare(
             "SELECT r.id_realisateur, 
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS realisateur,
-                    p.photo_personne AS photo
+                    p.photo_personne AS photo,
+                    p.date_naissance_personne AS dateNaissance
             FROM realisateur r
             LEFT JOIN personne p ON p.id_personne = r.id_personne
             ORDER BY p.nom_personne ");
@@ -30,7 +31,6 @@ class RealisateurManager {
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS realisateur, 
                     DATE_FORMAT(p.date_naissance_personne, '%d %M %Y') AS dateNaissance,
                     DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateMort,
-                    DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateAge,
                     genre_personne AS genre,
                     photo_personne AS photo,
                     biographie_personne AS bio

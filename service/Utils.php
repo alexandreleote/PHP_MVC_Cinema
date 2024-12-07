@@ -49,4 +49,20 @@ abstract class Utils {
         return $statut;
     }
 
+    /* Formater la durée d'un film */
+    public static function formatDuration(string $duration) {
+        list($hours, $minutes) = explode(':', $duration);
+        $hours = intval($hours);
+        $minutes = intval($minutes);
+        return $hours . 'h' . ($minutes > 0 ? $minutes : '');
+    }
+
+    /* Retourner l'url de l'embed de youtube */
+    public static function getYoutubeEmbedUrl(string $url) {
+        $videoId = "";
+        if (preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches)) {
+            $videoId = $matches[1];
+        }
+        return "https://www.youtube.com/embed/" . $videoId;
+    }
 }

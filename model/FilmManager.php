@@ -10,9 +10,11 @@ class FilmManager {
         $pdo = Connect::seConnecter();
         
         $requete = $pdo->prepare(
-            "SELECT f.id_film, f.titre_film, 
+            "SELECT f.id_film, 
+                f.titre_film, 
                 f.date_sortie_film AS sortieFilm, 
                 f.affiche_film AS affiche,
+                TIME_FORMAT(SEC_TO_TIME(f.duree_film * 60), '%H:%i') AS duree,
                 f.id_film
             FROM film f
             ORDER BY sortieFilm DESC");
@@ -31,9 +33,10 @@ class FilmManager {
                     YEAR(f.date_sortie_film) AS annee_sortie,
                     TIME_FORMAT(SEC_TO_TIME(f.duree_film * 60), '%H:%i') AS duree,
                     f.synopsis_film AS synopsis,
-                    f.note_film,
+                    f.note_film AS note,
                     f.affiche_film AS affiche,
-                    f.bg_film AS background,
+                    f.ba_film AS ba,
+                    f.bg_film AS bg,
                     GROUP_CONCAT(g.nom_genre SEPARATOR ' / ') AS genre
             FROM film f
             LEFT JOIN film_genre fg ON fg.id_film = f.id_film

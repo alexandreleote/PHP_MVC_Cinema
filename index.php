@@ -34,12 +34,7 @@ if(isset($_GET["action"])) {
         case "listActeurs" : $ctrlActeur->listActeurs(); break;
         case "detailActeur" : $ctrlActeur->detActeur($id); break;
         case "editActeur" : $ctrlActeur->modifyActeur($id); break;
-        case "modifyActeur":
-                $ctrlActeur->modifyActeur($id);
-                break;
-        case "updateActeur":
-                $ctrlActeur->updateActeur($id);
-                break;
+        case "updateActeur": $ctrlActeur->updateActeur($id); break;
         case "deleteActeur" : $ctrlActeur->deleteActeur($id); break;
         
         /* Views Realisateur */

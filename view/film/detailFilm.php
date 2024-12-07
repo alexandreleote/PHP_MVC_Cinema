@@ -1,62 +1,70 @@
 <?php
-
+use Service\Utils;
 ob_start();
-
 ?>
 
-<div class="container">
-    <div class="film-detail">
-        <div class="film-info">
-            <h1 class="film-title"><?= $details['titre_film'] ?></h1>
-            
-            <div class="film-meta">
-                <span><?= $details["genre"] ?></span>
-                <span>Durée : <?= $details["duree"] ?> </span>
-            </div>
-
-            <p class="film-synopsis"><?= $details["synopsis"]?></p>
+<div class="detail-header" style="background-image: url('<?= $film["bg"] ?>');">
+    <div class="overlay"></div>
+    <div class="detail-content">
+        <div class="detail-poster">
+            <img src="<?= $film["affiche"] ?>" alt="<?= $film["titre_film"] ?>" class="poster-img">
         </div>
-
-        <div class="film-side">
-            <img src="<?= $details["affiche"] ?>" 
-                alt="Affiche du film <?= $details["titre_film"]?>"  
-                class="film-poster">
-
-            <div class="film-crew">
-                <h2>Réalisation</h2>
-                <div class="crew-grid">
-                    <?php foreach($realisateur as $real) { ?>
-                        <div class="crew-item">
-                            <img src="<?= $real['photo'] ?>" 
-                                alt="Photo de <?= $real["realisateur"]?>"
-                                class="crew-image">
-                            <h3><?= $real['realisateur'] ?></h3>
-                        </div>
-                    <?php } ?>
-                </div>
+        <div class="detail-info">
+            <h1><?= $film["titre_film"] ?></h1>
+            <div class="meta-info">
+                <span class="meta-item"><?= Utils::formatDate($film["annee_sortie"], "") ?></span>
+                <span class="meta-item"><?= $film["duree"] ?> min</span>
+                <span class="meta-item"><?= $film["genre"] ?></span>
+                <span class="meta-item rating"><?= $film["note"] ?>/5</span>
             </div>
-
-            <div class="film-cast">
-                <h2>Casting</h2>
-                <div class="cast-grid">
-                    <?php foreach($casting as $cast) { ?>
-                        <div class="cast-item">
-                            <img src="<?= $cast['photo'] ?>" 
-                                alt="Photo de <?= $cast["acteur"]?>"
-                                class="cast-image">
-                            <h3><?= $cast['acteur'] ?></h3>
-                            <p>Rôle : <?= $cast['nomRole'] ?></p>
-                        </div>
-                    <?php } ?>
-                </div>
-            </div>
+            <p class="synopsis"><?= $film["synopsis"] ?></p>
         </div>
     </div>
 </div>
 
+<div class="detail-sections">
+    <section class="credits-section">
+        <h2>Réalisation</h2>
+        <div class="credits-grid">
+            <?php foreach($realisateur as $real) { ?>
+            <div class="credit-card">
+                <a href="index.php?action=detailRealisateur&id=<?= $real["id_realisateur"] ?>">
+                    <img src="<?= $real["photo"] ?>" alt="<?= $real["realisateur"] ?>">
+                    <div class="credit-info">
+                        <h3><?= $real["realisateur"] ?></h3>
+                        <p>Réalisateur</p>
+                    </div>
+                </a>
+            </div>
+            <?php } ?>
+        </div>
+    </section>
+
+    <section class="credits-section">
+        <h2>Distribution</h2>
+        <div class="credits-grid">
+            <?php foreach($casting as $cast) { ?>
+            <div class="credit-card">
+                <a href="index.php?action=detailActeur&id=<?= $cast["id_acteur"] ?>">
+                    <img src="<?= $cast["photo"] ?>" alt="<?= $cast["acteur"] ?>">
+                    <div class="credit-info">
+                        <h3><?= $cast["acteur"] ?></h3>
+                        <p><?= $cast["nomRole"] ?></p>
+                    </div>
+                </a>
+            </div>
+            <?php } ?>
+        </div>
+    </section>
+</div>
+
+<div class="action-buttons">
+    <a href="index.php?action=editFilm&id=<?= $film["id_film"] ?>" class="btn-edit">Modifier</a>
+</div>
+
 <?php
-$titre = $details["titre_film"];
-$metaDescription = "Détails du film " . $details["titre_film"];
+$titre = $film["titre_film"];
+$metaDescription = "On Air. - " . $film["titre_film"] . " : " . substr($film["synopsis"], 0, 150) . "...";
 $contenu = ob_get_clean();
 require "view/template.php";
 ?>

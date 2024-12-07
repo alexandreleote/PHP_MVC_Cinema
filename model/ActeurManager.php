@@ -12,7 +12,8 @@ class ActeurManager {
         $requeteList = $pdo->prepare(
             "SELECT a.id_acteur, 
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS acteur,
-                    p.photo_personne AS photo
+                    p.photo_personne AS photo,
+                    p.date_naissance_personne AS dateNaissance
             FROM acteur a
             LEFT JOIN personne p ON p.id_personne = a.id_personne
             ORDER BY p.nom_personne");
@@ -27,36 +28,21 @@ class ActeurManager {
 
         $pdo = Connect::seConnecter();
         $requeteDetails = $pdo->prepare(
-            "SELECT a.id_acteur,
+            "SELECT a.id_acteur, 
                     r.id_realisateur,
-                    p.nom_personne,
-                    p.prenom_personne,
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS acteur, 
-                    p.date_naissance_personne AS dateNaissance,
-                    p.date_mort_personne AS dateMort,
-                    p.date_mort_personne AS dateAge,
+                    DATE_FORMAT(p.date_naissance_personne, '%d %M %Y') AS dateNaissance,
+                    DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateMort,
                     genre_personne AS genre,
                     photo_personne AS photo,
-                    biographie_personne AS bio,
-                    CASE WHEN a.id_acteur IS NOT NULL THEN 'acteur' END as metier_acteur,
-                    CASE WHEN r.id_realisateur IS NOT NULL THEN 'realisateur' END as metier_realisateur
-            FROM acteur a  
+                    biographie_personne AS bio
+            FROM acteur a
             LEFT JOIN personne p ON p.id_personne = a.id_personne
-            LEFT JOIN realisateur r ON r.id_personne = p.id_personne 
+            LEFT JOIN realisateur r ON r.id_personne = p.id_personne
             WHERE a.id_acteur = :id");
-
         $requeteDetails->execute(["id" => $id]);
-        $result = $requeteDetails->fetch();
-        
-        // Préparer le tableau des métiers
-        $result['metiers'] = array_filter([
-            $result['metier_acteur'],
-            $result['metier_realisateur']
-        ]);
-        
-        unset($result['metier_acteur'], $result['metier_realisateur']);
-        
-        return $result;
+
+        return $requeteDetails->fetch();
     }
 
     /* Récupérer la filmographie de l'acteur */
@@ -92,7 +78,7 @@ class ActeurManager {
             // Mise à jour des informations de la personne
             $requeteUpdatePersonne = $pdo->prepare(
                 "UPDATE personne p
-                INNER JOIN acteur a ON a.id_personne = p.id_personne
+                INNER JOIN acteur a     ON a.id_personne = p.id_personne
                 SET nom_personne = :nom,
                     prenom_personne = :prenom,
                     genre_personne = :genre,

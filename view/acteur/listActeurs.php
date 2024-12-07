@@ -3,27 +3,29 @@ use Service\Utils;
 ob_start();
 ?>
 
-<section class="list-container">
-    <header class="list-header">
-        <h1>Liste des Acteurs</h1>
-        <p class="list-count"><?= count($acteurs) ?> Acteur<?= count($acteurs) > 1 ? "s" : "" ?></p>
-        <div class="list-actions">
-            <a href="index.php?action=addActeur" class="btn-primary">Ajouter un Acteur</a>
+<div class="list-container">
+    <div class="page-banner banner-acteurs">
+        <div class="banner-content">
+            <h1>Acteurs</h1>
+            <p><strong><?= count($acteurs) ?></strong> Acteur<?= count($acteurs) > 1 ? "s" : "" ?></p>
         </div>
-    </header>
+        <div class="banner-content">
+            <a href="index.php?action=addActeur" class="add-button">Ajouter un Acteur</a>
+        </div>
+    </div>
 
-    <div class="list-grid">
+    <div class="cards-grid">
         <?php foreach($acteurs as $acteur) { ?>
-            <article class="list-card" style="background-image: url('<?= $acteur["photo"] ?>');">
-                <a href="index.php?action=detailActeur&id=<?= $acteur['id_acteur'] ?>" class="list-card-link">
-                    <div class="list-card-content">
-                        <h2 class="list-card-title"><?= $acteur["acteur"] ?></h2>
-                    </div>
-                </a>
-            </article>
+        <div class="card">
+            <img src="<?= $acteur["photo"] ?>" alt="<?= $acteur["acteur"] ?>" class="card-image">
+            <div class="card-content">
+                <h3 class="card-title"><?= $acteur["acteur"] ?></h3>
+            </div>
+            <a href="index.php?action=detailActeur&id=<?= $acteur["id_acteur"] ?>" class="card-link"></a>
+        </div>
         <?php } ?>
     </div>
-</section>
+</div>
 
 <?php
 $titre = "Liste des Acteurs";

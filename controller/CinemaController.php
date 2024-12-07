@@ -19,7 +19,7 @@ class CinemaController {
     public function detFilm($id) {
         
         $filmManager = new FilmManager();
-        $details = $filmManager->getDetFilm($id);
+        $film = $filmManager->getDetFilm($id);
         $realisateur = $filmManager->getRealisateur($id);
         $casting = $filmManager->getCasting($id);
 
