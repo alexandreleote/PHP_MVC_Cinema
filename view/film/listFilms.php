@@ -4,7 +4,7 @@ ob_start();
 ?>
 
 <div class="list-container">
-    <div class="page-banner banner-films">
+    <section class="page-banner banner-films">
         <div class="banner-content">
             <h1>Films</h1>
             <p><strong><?= count($films) ?></strong> Film<?= count($films) > 1 ? "s" : "" ?></p>
@@ -12,11 +12,11 @@ ob_start();
         <div class="banner-content">
             <a href="index.php?action=addFilm" class="add-button">Ajouter un Film</a>
         </div>
-    </div>
+    </section>
 
-    <div class="cards-grid">
+    <section class="cards-grid">
         <?php foreach($films as $film) { ?>
-        <div class="card">
+        <article class="card">
             <img src="<?= $film["affiche"] ?>" alt="<?= $film["titre_film"] ?>" class="card-image">
             <div class="card-content">
                 <h3 class="card-title"><?= $film["titre_film"] ?></h3>
@@ -26,9 +26,9 @@ ob_start();
                 </div>
             </div>
             <a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>" class="card-link"></a>
-        </div>
+        </article>
         <?php } ?>
-    </div>
+    </section>
 </div>
 
 <?php

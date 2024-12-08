@@ -3,116 +3,54 @@ use Service\Utils;
 ob_start();
 ?>
 
-<!-- Contenu de la page -->
-<div>
-    <div>
-        <form action="index.php?action=updateActeur&id=<?= $details["id_acteur"] ?>" method="POST">
-            <!-- Premier bloc : Informations personnelles -->
-            <div>
-                <!-- Informations personnelles -->
-                <div>
-                    <!-- Photo -->
-                    <div>
-                        <img src="<?= $details["photo"] ?>" alt="Photo de <?= $details["acteur"] ?>">
-                        <div>
-                            <label for="photo">Photo (URL) :</label>
-                            <input type="url" id="photo" name="photo" value="<?= $details["photo"] ?>" required>
-                        </div>
-                    </div>
 
-                    <!-- Details -->
-                    <div>
-                        <!-- Prénom -->
-                        <div>
-                            <label for="prenom">Prénom :</label>
-                            <input type="text" id="prenom" name="prenom" value="<?= $details["prenom_personne"] ?>" required>
-                        </div>
-
-                        <!-- Nom -->
-                        <div>
-                            <label for="nom">Nom :</label>
-                            <input type="text" id="nom" name="nom" value="<?= $details["nom_personne"] ?>" required>
-                        </div>
-
-                        <!-- Genre -->
-                        <div>
-                            <label>Genre :</label>
-                            <div>
-                                <div>
-                                    <input type="radio" id="homme" name="genre" value="Homme" <?= $details["genre"] === "Homme" ? "checked" : "" ?> required>
-                                    <label for="homme">Homme</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="femme" name="genre" value="Femme" <?= $details["genre"] === "Femme" ? "checked" : "" ?> required>
-                                    <label for="femme">Femme</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Date de naissance -->
-                        <div>
-                            <label for="dateNaissance">Date de naissance :</label>
-                            <input type="date" id="dateNaissance" name="dateNaissance" value="<?= $details["dateNaissance"] ?>" required>
-                        </div>
-
-                        <!-- Date de décès -->
-
-
-                <!-- Métiers -->
-                <div>
-                    <label>Métiers :</label>
-                    <div>
-                        <div>
-                            <input type="checkbox" id="acteur" name="metiers[]" value="acteur" <?= isset($details["metiers"]) && in_array("acteur", $details["metiers"]) ? "checked" : "" ?>>
-                            <label for="acteur"><?= $details["genre"] === "Homme" ? "Acteur" : "Actrice" ?></label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="realisateur" name="metiers[]" value="realisateur" <?= isset($details["metiers"]) && in_array("realisateur", $details["metiers"]) ? "checked" : "" ?>>
-                            <label for="realisateur"><?= $details["genre"] === "Homme" ? "Réalisateur" : "Réalisatrice" ?></label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Biographie -->
-                <div>
-                    <label for="bio">Biographie :</label>
-                    <textarea id="bio" name="bio" rows="5"><?= $details["bio"] ?></textarea>
-                </div>
+<section class="film-detail-container">
+    <article class="film-header" style="background-image: url('<?= $details["bg"] ?>');">
+        <div class="film-content">
+            <div class="film-poster-container">
+                <img src="<?= $details["photo"] ?>" alt="<?= $details["acteur"] ?>" class="film-poster">
             </div>
-
-            <!-- Deuxième bloc : Filmographie -->
-            <div>
-                <h2>Filmographie</h2>
-                <div>
-                    <?php foreach($filmographie as $film) { ?>
-                        <div>
-                            <div>
-                                <img src="<?= $film["affiche"] ?>" alt="Affiche de <?= $film["titre_film"] ?>">
-                                <h3><?= $film["titre_film"] ?></h3>
-                            </div>
-                            <div>
-                                <label for="role_<?= $film["id_film"] ?>">Rôle :</label>
-                                <input type="text" id="role_<?= $film["id_film"] ?>" name="roles[<?= $film["id_film"] ?>]" value="<?= $film["nomRole"] ?>">
-                                <button type="button" data-film-id="<?= $film["id_film"] ?>">Retirer ce film</button>
-                            </div>
-                        </div>
+            <div class="film-info">
+                <h1 class="film-title"><?= $details["acteur"] ?></h1>
+                <div class="film-meta detail-info-row">
+                    <span>Né<?= $details["genre"] === "Femme" ? "e" : "" ?> le <?= Utils::formatDate($details["dateNaissance"], "") ?></span>
+                    <?php if ($details["dateMort"]) { ?>
+                        <span>Décédé<?= $details["genre"] === "Femme" ? "e" : "" ?> le <?= Utils::formatDate($details["dateMort"], "") ?></span>
                     <?php } ?>
+                    <span><?= Utils::getMetiers($details) ?></span>
+                    <span>Âge : <?= Utils::getAge($details["dateNaissance"], $details["dateMort"]) ?> ans</span>
+                    <span>Nombre de films : <?= count($filmographie) ?></span>
                 </div>
+                <?php if (!empty($details["bio"])) { ?>
+                    <p class="film-synopsis"><?= ($details["bio"]) ?></p>
+                <?php } ?>
             </div>
+        </div>
+    </article>
 
-            <!-- Boutons d'enregistrement / réinitialisation -->
-            <div>
-                <button type="submit">Enregistrer les modifications</button>
-                <button type="reset">Réinitialiser</button>
+    <section class="film-credits">
+        <article class="credits-section filmography">
+            <h2 class="credits-title">Filmographie</h2>
+            <div class="credits-grid">
+                <?php foreach($filmographie as $film) { ?>
+                <div class="credit-card">
+                    <a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>">
+                        <img src="<?= ($film["affiche"]) ?>" alt="<?= ($film["titre_film"]) ?>">
+                        <div class="credit-info">
+                            <h3><?= ($film["titre_film"]) ?></h3>
+                            <p><?= ($film["nomRole"]) ?></p>
+                            <span class="card-year"><?= Utils::formatDate($film["annee_sortie"], "") ?></span>
+                        </div>
+                    </a>
+                </div>
+                <?php } ?>
             </div>
-        </form>
-    </div>
-</div>
+        </article>
+    </section>
 
-<!-- Bouton de suppression -->
-<aside>
-    <a href="index.php?action=deleteActeur&id=<?= $details["id_acteur"] ?>">Supprimer</a>
-</aside>
+    <a href="index.php?action=editActeur&id=<?= $details["id_acteur"] ?>" class="btn-delete">Supprimer</a>
+</section>
+
 
 <?php
 $titre = "Modifier : " . $details["acteur"];

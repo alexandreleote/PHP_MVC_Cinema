@@ -5,10 +5,10 @@
         <h1>Panneau d'Administration</h1>
     </header>
 
-    <div class="admin-actions">
-        <a href="index.php?action=addFilm" class="btn-primary">Ajouter un Film</a>
-        <a href="index.php?action=addGenre" class="btn-primary">Ajouter un Genre</a>
-    </div>
+    <article class="admin-actions">
+        <a href="index.php?action=addFilm" class="add-button">Ajouter un Film</a>
+        <a href="index.php?action=addGenre" class="add-button">Ajouter un Genre</a>
+    </article>
 </section>
 
 <?php

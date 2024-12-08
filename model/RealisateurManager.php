@@ -33,6 +33,7 @@ class RealisateurManager {
                     DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateMort,
                     genre_personne AS genre,
                     photo_personne AS photo,
+                    bg_personne AS bg,
                     biographie_personne AS bio
             FROM realisateur r
             LEFT JOIN personne p ON p.id_personne = r.id_personne

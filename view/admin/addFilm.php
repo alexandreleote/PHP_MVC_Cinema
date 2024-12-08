@@ -46,7 +46,7 @@
             <!-- Note du film -->
             <div class="form-group">
                 <label for="noteFilm">Note du film</label>
-                <input type="number" step="0.01" id="noteFilm" name="noteFilm" min="1" max="5">
+                <input type="number" step="0.01" id="noteFilm" name="noteFilm" placeholder="Entrez la note du film" min="1" max="5" required>
             </div>
 
             <!-- Genres du film -->

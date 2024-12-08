@@ -16,6 +16,11 @@
   --font-size-main: 1.5rem;
   --font-size-menu: 0.9375rem;
   --font-weight-menu: 600;
+
+  /* Button Colors */
+  --button-primary: #790000;
+  --button-primary-hover: #e50914;
+  --button-text: #f1f1f1;
 }
 
 /* General Parameters */
@@ -219,8 +224,8 @@ body {
   
   .add-button {
     display: inline-block;
-    background-color: var(--color-text-secondary);
-    color: var(--color-text-primary);
+    background-color: var(--button-primary);
+    color: var(--button-text);
     padding: 0.75rem 1.5rem;
     border-radius: 0.25rem;
     text-decoration: none;
@@ -232,7 +237,7 @@ body {
   }
   
   .add-button:hover {
-    background-color: var(--color-text-hover);
+    background-color: var(--button-primary-hover);
     transform: translateY(-0.125rem);
     box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.3);
   }
@@ -276,7 +281,7 @@ body {
     background: #0a0a0a;
     transition: transform 0.3s ease;
   }
-  
+
   .card:hover {
     transform: translateY(-0.3125rem);
   }
@@ -286,6 +291,7 @@ body {
     aspect-ratio: 2/3;
     object-fit: cover;
     transition: transform 0.3s ease;
+    filter: brightness(0.8);
   }
   
   .card:hover .card-image {
@@ -339,165 +345,10 @@ body {
   }
   
   /* Detail Pages */
-  .detail-header {
-    position: relative;
-    min-height: 500px;
-    background-size: cover;
-    background-position: center;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-  }
-
-  .detail-header .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 0.95));
-  }
-
-  .detail-content {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  .detail-poster {
-    position: relative;
-  }
-
-  .detail-poster img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .detail-info {
-    padding-top: 2rem;
-  }
-
-  .detail-info h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
-
-  .meta-info {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-  }
-
-  .meta-item {
-    position: relative;
-  }
-
-  .meta-item:not(:last-child)::after {
-    content: "•";
-    position: absolute;
-    right: -1rem;
-    opacity: 0.5;
-  }
-
-  .meta-item.rating {
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .synopsis {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-  }
-
-  .detail-sections {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .credits-section {
-    margin-bottom: 3rem;
-  }
-
-  .credits-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
-  }
-
-  .credits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .credit-card {
-    background: var(--surface);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.2s ease;
-  }
-
-  .credit-card:hover {
-    transform: translateY(-4px);
-  }
-
-  .credit-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-  }
-
-  .credit-info {
-    padding: 1rem;
-  }
-
-  .credit-info h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-  }
-
-  .credit-info p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-  }
-
-  .action-buttons {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-edit {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    background: var(--accent);
-    color: var(--text-primary);
-    border-radius: 4px;
-    font-weight: 600;
-    transition: background 0.2s ease;
-  }
-
-  .btn-edit:hover {
-    background: var(--accent-hover);
-  }
-
+  
   /* Template */
   .main-container {
-    margin-top: 5rem;
+    margin-top: 6rem;
     display: flex;
   }
   
@@ -581,44 +432,60 @@ body {
 }
 
 /* Film Detail Specific */
+.film-detail-container {
+    width: 100vw;
+}
+
 .film-header {
   position: relative;
-  height: 70vh;
+  height: 75vh;
   background-size: cover;
-  background-position: center;
+  background-position: center 20%;
+  background-repeat: no-repeat;
   display: flex;
   align-items: flex-end;
-  padding: 0;
   overflow: hidden;
+  margin-bottom: 1rem;
 }
 
 .film-header::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(to bottom, 
-    rgba(0,0,0,0.4) 0%,
-    rgba(0,0,0,0.6) 50%,
-    rgba(0,0,0,0.9) 100%
-  );
+            rgba(0, 0, 0, 0.4) 0%, 
+            rgba(17, 17, 17, 0.4) 20%, 
+            rgba(17, 17, 17, 0.8) 80%,
+            rgba(17, 17, 17, 0.95) 90%, 
+            rgb(17 17 17) 100%);
+}
+
+.film-poster-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.film-poster {
+    width: 300px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .film-content {
   position: relative;
   z-index: 2;
-  padding: 3rem;
+  padding: 2rem;
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 3rem;
   align-items: flex-end;
-}
-
-.film-poster {
-  width: 18.75rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
-  transform: translateY(3rem);
 }
 
 .film-info {
@@ -646,61 +513,305 @@ body {
 }
 
 .film-credits {
-  padding: 5rem 3rem 3rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
 }
 
 .credits-section {
-  margin-bottom: 3rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .credits-title {
-  font-family: var(--font-main);
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: var(--color-text-primary);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
 }
 
 .credits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.credits-section {
+    margin-top: 4rem;
+}
+
+.film-credits {
+    padding: 5rem 3rem 3rem;
+}
+
+.credits-section {
+    margin-bottom: 3rem;
+}
+
+.credits-title {
+    font-family: var(--font-main);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-primary);
+}
+
+.credits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    gap: 2rem;
 }
 
 .credit-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 0.5rem;
-  padding: 1rem;
-  transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
 }
 
 .credit-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-0.25rem);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-0.25rem);
 }
 
 .credit-card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
 }
 
 .credit-info {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .credit-info h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
 }
 
 .credit-info p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .credit-card a {
     text-decoration: none;
     color: inherit;
     display: block;
+}
+
+
+/* Admin Panel */
+
+.admin-panel {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    gap: 20px;
+
+    & .admin-actions {
+        display: flex;
+        gap: 20px;
+    }
+}
+
+.add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background: var(--button-primary);
+    color: var(--button-text);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.add-button:hover {
+    background: var(--button-primary-hover);
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    color: var(--text-primary);
+    text-decoration: none;
+    border: 1px solid var(--text-primary);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    position: fixed;
+    top: 6rem;
+    left: 1rem;
+    z-index: 10;
+}
+
+.back-button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.back-button svg {
+    margin-right: 0.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.btn-edit,
+.btn-delete {
+    position: fixed;
+    top: 6rem;
+    right: 1rem;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background: var(--button-primary);
+    color: var(--button-text);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+    background: var(--button-primary-hover);
+}
+
+/* Styles for admin forms */
+.admin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    padding: 20px;
+    background-color: var(--color-bg-primary);
+}
+
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--color-bg-navbar);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+}
+
+.form-container h2 {
+    text-align: center;
+    color: var(--color-text-primary);
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-text-primary);
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-text-secondary);
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-text-hover);
+    box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.checkbox-item label {
+    color: var(--color-text-primary);
+    margin-bottom: 0;
+}
+
+.checkbox-item input {
+    margin-right: 5px;
+    accent-color: var(--color-text-hover);
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: var(--color-text-secondary);
+    color: var(--color-text-primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-text-hover);
+}
+
+.detail-info-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.detail-info-row > * {
+    margin-right: 25px;
+    position: relative;
+}
+
+.detail-info-row > *::after {
+    content: "•";
+    margin-left: 25px;
+    opacity: 0.5;
+    position: absolute;
+    right: -25px;
+}
+
+.detail-info-row > *:last-child::after {
+    display: none;
 }

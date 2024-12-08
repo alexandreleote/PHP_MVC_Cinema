@@ -35,6 +35,7 @@ class ActeurManager {
                     DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateMort,
                     genre_personne AS genre,
                     photo_personne AS photo,
+                    bg_personne AS bg,
                     biographie_personne AS bio
             FROM acteur a
             LEFT JOIN personne p ON p.id_personne = a.id_personne
