@@ -2,17 +2,13 @@
 use Service\Utils;
 ob_start();
 
-// Extraction du prénom et du nom
-$nameParts = explode(' ', $details['acteur'] ?? '', 2);
-$prenom = count($nameParts) > 1 ? $nameParts[0] : '';
-$nom = count($nameParts) > 1 ? $nameParts[1] : ($nameParts[0] ?? '');
 ?>
 
 <section class="film-detail-container">
     <article class="film-header" style="background-image: url('<?=  $details['bg'] ?>');">
         <div class="film-content">
             <div class="film-poster-container">
-                <img src="<?= $details['photo'] ?? '' ?>" alt="<?= $details['acteur'] ?? '' ?>" class="film-poster">
+                <img src="<?= $details['photo'] ?>" alt="<?= $details['acteur'] ?>" class="film-poster">
             </div>
 
             <div class="film-info">
@@ -70,7 +66,7 @@ $nom = count($nameParts) > 1 ? $nameParts[1] : ($nameParts[0] ?? '');
                         type="text" 
                         id="prenom" 
                         name="prenom" 
-                        value="<?= $prenom ?>" 
+                        value="<?= $details['prenom_personne'] ?>" 
                         placeholder="Prénom"
                     >
                 </div>
@@ -80,7 +76,7 @@ $nom = count($nameParts) > 1 ? $nameParts[1] : ($nameParts[0] ?? '');
                         type="text" 
                         id="nom" 
                         name="nom" 
-                        value="<?= $nom ?>" 
+                        value="<?= $details['nom_personne'] ?>" 
                         placeholder="Nom" 
                         required
                     >
@@ -88,22 +84,26 @@ $nom = count($nameParts) > 1 ? $nameParts[1] : ($nameParts[0] ?? '');
                 <div class="form-group">
                     <label>Genre</label>
                     <div class="radio-group">
-                        <input 
-                            type="radio" 
-                            id="homme" 
-                            name="genre" 
-                            value="Homme" 
-                            <?= (isset($details['genre']) && $details['genre'] === 'Homme') ? 'checked' : '' ?>
-                        >
-                        <label for="homme">Homme</label>
-                        <input 
-                            type="radio" 
-                            id="femme" 
-                            name="genre" 
-                            value="Femme" 
-                            <?= (isset($details['genre']) && $details['genre'] === 'Femme') ? 'checked' : '' ?>
-                        >
-                        <label for="femme">Femme</label>
+                        <div>
+                            <input 
+                                type="radio" 
+                                id="homme" 
+                                name="genre" 
+                                value="Homme" 
+                                <?= (isset($details['genre']) && $details['genre'] === 'Homme') ? 'checked' : '' ?>
+                            >
+                            <label for="homme">Homme</label>
+                        </div>
+                        <div>
+                            <input 
+                                type="radio" 
+                                id="femme" 
+                                name="genre" 
+                                value="Femme" 
+                                <?= (isset($details['genre']) && $details['genre'] === 'Femme') ? 'checked' : '' ?>
+                            >
+                            <label for="femme">Femme</label>
+                        </div>
                     </div>
                 </div>
             </div>

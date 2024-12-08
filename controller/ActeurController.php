@@ -30,7 +30,7 @@ class ActeurController {
         $acteurManager = new ActeurManager();
         $details = $acteurManager->getDetActeur($id);
         $filmographie = $acteurManager->getFilmographie($id);
-
+        
         require "view/acteur/editActeur.php";
     }
 

@@ -968,7 +968,7 @@ body {
     transform: translate(-50%, -50%);
     width: 10px;
     height: 10px;
-    background-color: var(--button-text);
+    background-color: white;
     border-radius: 50%;
 }
 
@@ -980,4 +980,124 @@ body {
     margin-bottom: 15px;
     border-radius: 4px;
     font-size: 0.9rem;
+}
+
+/* Styles pour les checkbox personnalisées */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.checkbox-group div {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-group div input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox-group div input + label {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.checkbox-group div input + label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-text-secondary);
+    background-color: transparent;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-group div input:checked + label::before {
+    background-color: var(--color-text-secondary);
+    border-color: var(--color-text-secondary);
+}
+
+.checkbox-group div input:checked + label::after {
+    content: '✔';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    color: white;
+    font-size: 14px;
+}
+
+/* Styles pour les radio boutons personnalisés */
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.radio-group div {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.radio-group div input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.radio-group div input + label {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.radio-group div input + label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-text-secondary);
+    background-color: transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.radio-group div input:checked + label::before {
+    background-color: var(--color-text-secondary);
+    border-color: var(--color-text-secondary);
+}
+
+.radio-group div input:checked + label::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
 }

@@ -30,6 +30,8 @@ class ActeurManager {
         $requeteDetails = $pdo->prepare(
             "SELECT a.id_acteur, 
                     r.id_realisateur,
+                    p.prenom_personne,
+                    p.nom_personne,
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS acteur, 
                     DATE_FORMAT(p.date_naissance_personne, '%d %M %Y') AS dateNaissance,
                     DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateMort,
