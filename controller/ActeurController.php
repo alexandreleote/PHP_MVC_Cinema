@@ -39,30 +39,25 @@ class ActeurController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $acteurManager = new ActeurManager();
             
-            try {
-                // Récupération et nettoyage des données
-                $data = [
-                    'nom' => filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS),
-                    'prenom' => filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS),
-                    'genre' => filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_SPECIAL_CHARS),
-                    'dateNaissance' => filter_input(INPUT_POST, 'dateNaissance'),
-                    'dateMort' => filter_input(INPUT_POST, 'dateMort'),
-                    'photo' => filter_input(INPUT_POST, 'photo', FILTER_SANITIZE_URL),
-                    'bio' => filter_input(INPUT_POST, 'bio', FILTER_SANITIZE_SPECIAL_CHARS),
-                    'estVivant' => filter_input(INPUT_POST, 'estVivant', FILTER_VALIDATE_BOOLEAN),
-                    'metiers' => isset($_POST['metiers']) ? $_POST['metiers'] : []
-                ];
+            // Récupération et nettoyage des données
+            $data = [
+                'nom' => filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_SPECIAL_CHARS),
+                'prenom' => filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_SPECIAL_CHARS),
+                'genre' => filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_SPECIAL_CHARS),
+                'dateNaissance' => filter_input(INPUT_POST, 'dateNaissance'),
+                'dateMort' => filter_input(INPUT_POST, 'dateMort'),
+                'photo' => filter_input(INPUT_POST, 'photo', FILTER_SANITIZE_URL),
+                'bg' => filter_input(INPUT_POST, 'bg', FILTER_SANITIZE_SPECIAL_CHARS),
+                'bio' => filter_input(INPUT_POST, 'bio', FILTER_SANITIZE_SPECIAL_CHARS),
+                'estVivant' => filter_input(INPUT_POST, 'estVivant', FILTER_VALIDATE_BOOLEAN),
+                'metiers' => isset($_POST['metiers']) ? $_POST['metiers'] : []
+            ];
 
-                $acteurManager->updateActeur($id, $data);
-                
-                // Redirection vers la page de détails de l'acteur
-                header("Location: index.php?action=detailActeur&id=" . $id);
-                exit();
-                
-            } catch (\Exception $e) {
-                // Gérer l'erreur ici
-                die('Erreur : ' . $e->getMessage());
-            }
+            $acteurManager->updateActeur($id, $data);
+            
+            // Redirection vers la page de détails de l'acteur
+            header("Location: index.php?action=detailActeur&id=" . $id);
+            exit();
         }
     }
 

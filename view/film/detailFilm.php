@@ -1,20 +1,16 @@
 <?php
 use Service\Utils;
 ob_start();
-
-// Ensure background image exists and has a valid path
-$bgImage = !empty($film["bg"]) ? $film["bg"] : 'public/images/default-bg.jpg';
-$posterImage = !empty($film["affiche"]) ? $film["affiche"] : 'public/images/default-poster.jpg';
 ?>
 
 <section class="film-detail-container">
-    <article class="film-header" style="background-image: url('<?= ($bgImage) ?>');">
+    <article class="film-header" style="background-image: url('<?= $film["bg"] ?>');">
         <div class="film-content">
             <div class="film-poster-container">
-                <img src="<?= ($posterImage) ?>" alt="<?= ($film["titre_film"]) ?>" class="film-poster">
+                <img src="<?= $film["affiche"] ?>" alt="<?= $film["titre_film"] ?>" class="film-poster">
             </div>
             <div class="film-info">
-                <h1 class="film-title"><?= ($film["titre_film"]) ?></h1>
+                <h1 class="film-title"><?= $film["titre_film"] ?></h1>
                 <div class="film-meta detail-info-row">
                     <span><?= Utils::formatDate($film["annee_sortie"], "") ?></span>
                     <span><?= $film["duree"] ?> min</span>

@@ -73,112 +73,105 @@ class ActeurManager {
     public function updateActeur($id, $data) {
         $pdo = Connect::seConnecter();
         
-        try {
-            $pdo->beginTransaction();
-            
-            // Mise à jour des informations de la personne
-            $requeteUpdatePersonne = $pdo->prepare(
-                "UPDATE personne p
-                INNER JOIN acteur a     ON a.id_personne = p.id_personne
-                SET nom_personne = :nom,
-                    prenom_personne = :prenom,
-                    genre_personne = :genre,
-                    date_naissance_personne = :dateNaissance,
-                    date_mort_personne = :dateMort,
-                    photo_personne = :photo,
-                    biographie_personne = :bio
-                WHERE a.id_acteur = :id"
-            );
-            
-            $requeteUpdatePersonne->execute([
-                'nom' => $data['nom'],
-                'prenom' => $data['prenom'],
-                'genre' => $data['genre'],
-                'dateNaissance' => $data['dateNaissance'],
-                'dateMort' => $data['dateMort'] ?: null,
-                'photo' => $data['photo'],
-                'bio' => $data['bio'],
-                'id' => $id
-            ]);
-            
-            // Récupérer l'id_personne
-            $requeteIdPersonne = $pdo->prepare(
-                "SELECT p.id_personne 
-                FROM acteur a
-                INNER JOIN personne p ON p.id_personne = a.id_personne
-                WHERE a.id_acteur = :id"
-            );
-            $requeteIdPersonne->execute(['id' => $id]);
-            $idPersonne = $requeteIdPersonne->fetchColumn();
-            
-            // Gérer les métiers
-            // Supprimer les anciens rôles
-            $pdo->prepare("DELETE FROM realisateur WHERE id_personne = ?")->execute([$idPersonne]);
-            
-            // Ajouter les nouveaux rôles
-            if (isset($data['metiers']) && is_array($data['metiers'])) {
-                foreach ($data['metiers'] as $metier) {
-                    if ($metier === 'realisateur') {
-                        $pdo->prepare("INSERT INTO realisateur (id_personne) VALUES (?)")->execute([$idPersonne]);
-                    }
+        $pdo->beginTransaction();
+        
+        // Mise à jour des informations de la personne
+        $requeteUpdatePersonne = $pdo->prepare(
+            "UPDATE personne p
+            INNER JOIN acteur a     ON a.id_personne = p.id_personne
+            SET p.nom_personne = COALESCE(:nom, p.nom_personne),
+                p.prenom_personne = COALESCE(:prenom, p.prenom_personne),
+                p.genre_personne = COALESCE(:genre, p.genre_personne),
+                p.date_naissance_personne = COALESCE(:dateNaissance, p.date_naissance_personne),
+                p.date_mort_personne = COALESCE(:dateMort, p.date_mort_personne),
+                p.photo_personne = COALESCE(:photo, p.photo_personne),
+                p.bg_personne = COALESCE(:bg, p.bg_personne),
+                p.biographie_personne = COALESCE(:bio, p.biographie_personne)
+            WHERE a.id_acteur = :id"
+        );
+        
+        // Convertir les dates vides en NULL
+        $dateNaissance = !empty($data['dateNaissance']) ? $data['dateNaissance'] : null;
+        $dateMort = !empty($data['dateMort']) ? $data['dateMort'] : null;
+        
+        $requeteUpdatePersonne->execute([
+            'nom' => $data['nom'],
+            'prenom' => $data['prenom'],
+            'genre' => $data['genre'],
+            'dateNaissance' => $dateNaissance,
+            'dateMort' => $dateMort,
+            'photo' => $data['photo'],
+            'bg' => $data['bg'],
+            'bio' => $data['bio'],
+            'id' => $id
+        ]);
+        
+        // Récupérer l'id_personne
+        $requeteIdPersonne = $pdo->prepare(
+            "SELECT p.id_personne 
+            FROM acteur a
+            INNER JOIN personne p ON p.id_personne = a.id_personne
+            WHERE a.id_acteur = :id"
+        );
+        $requeteIdPersonne->execute(['id' => $id]);
+        $idPersonne = $requeteIdPersonne->fetchColumn();
+        
+        // Gérer les métiers
+        // Supprimer les anciens rôles
+        $pdo->prepare("DELETE FROM realisateur WHERE id_personne = ?")->execute([$idPersonne]);
+        
+        // Ajouter les nouveaux rôles
+        if (isset($data['metiers']) && is_array($data['metiers'])) {
+            foreach ($data['metiers'] as $metier) {
+                if ($metier === 'realisateur') {
+                    $pdo->prepare("INSERT INTO realisateur (id_personne) VALUES (?)")->execute([$idPersonne]);
                 }
             }
-            
-            $pdo->commit();
-            return true;
-            
-        } catch (\Exception $e) {
-            $pdo->rollBack();
-            throw $e;
         }
+        
+        $pdo->commit();
+        return true;
     }
 
     /* Supprimer un acteur */
     public function delActeur($id) {
         $pdo = Connect::seConnecter();
         
-        try {
-            // Démarrer une transaction
-            $pdo->beginTransaction();
-            
-            // 1. Supprimer d'abord les castings associés
-            $requeteCasting = $pdo->prepare(
-                "DELETE FROM casting 
-                WHERE id_acteur = :id"
-            );
-            $requeteCasting->execute(["id" => $id]);
-            
-            // 2. Récupérer l'id_personne de l'acteur
-            $requeteGetPersonne = $pdo->prepare(
-                "SELECT id_personne 
-                FROM acteur 
-                WHERE id_acteur = :id"
-            );
-            $requeteGetPersonne->execute(["id" => $id]);
-            $id_personne = $requeteGetPersonne->fetchColumn();
-            
-            // 3. Supprimer l'acteur
-            $requeteActeur = $pdo->prepare(
-                "DELETE FROM acteur 
-                WHERE id_acteur = :id"
-            );
-            $requeteActeur->execute(["id" => $id]);
-            
-            // 4. Supprimer la personne associée
-            $requetePersonne = $pdo->prepare(
-                "DELETE FROM personne 
-                WHERE id_personne = :id_personne"
-            );
-            $requetePersonne->execute(["id_personne" => $id_personne]);
-            
-            // Valider la transaction
-            $pdo->commit();
-            return true;
-            
-        } catch(PDOException $e) {
-            // En cas d'erreur, annuler toutes les modifications
-            $pdo->rollBack();
-            throw $e;
-        }
+        // Démarrer une transaction
+        $pdo->beginTransaction();
+        
+        // 1. Supprimer d'abord les castings associés
+        $requeteCasting = $pdo->prepare(
+            "DELETE FROM casting 
+            WHERE id_acteur = :id"
+        );
+        $requeteCasting->execute(["id" => $id]);
+        
+        // 2. Récupérer l'id_personne de l'acteur
+        $requeteGetPersonne = $pdo->prepare(
+            "SELECT id_personne 
+            FROM acteur 
+            WHERE id_acteur = :id"
+        );
+        $requeteGetPersonne->execute(["id" => $id]);
+        $id_personne = $requeteGetPersonne->fetchColumn();
+        
+        // 3. Supprimer l'acteur
+        $requeteActeur = $pdo->prepare(
+            "DELETE FROM acteur 
+            WHERE id_acteur = :id"
+        );
+        $requeteActeur->execute(["id" => $id]);
+        
+        // 4. Supprimer la personne associée
+        $requetePersonne = $pdo->prepare(
+            "DELETE FROM personne 
+            WHERE id_personne = :id_personne"
+        );
+        $requetePersonne->execute(["id_personne" => $id_personne]);
+        
+        // Valider la transaction
+        $pdo->commit();
+        return true;
     }
 }
