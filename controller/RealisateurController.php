@@ -22,6 +22,11 @@ class RealisateurController {
         $details = $realisateurManager->getDetRealisateur($id);
         $filmographie = $realisateurManager->getFilmographie($id);
         
+        if(!$details) {
+            header("Location: index.php");
+            exit();
+        }
+
         require "view/realisateur/detailRealisateur.php";
     }
 }

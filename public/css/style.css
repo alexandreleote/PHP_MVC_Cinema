@@ -1101,3 +1101,121 @@ body {
     background-color: white;
     border-radius: 50%;
 }
+
+/* Director Section Styling */
+.director-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.director-section input[disabled] {
+    background-color: #f4f4f4;
+    color: #666;
+    cursor: not-allowed;
+    flex-grow: 1;
+}
+
+.director-section select {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Casting Section Styles */
+.form-section.casting {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.casting-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.actor-add-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.actor-add-container select,
+.actor-add-container input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-add-actor {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-add-actor:hover {
+    background-color: #45a049;
+}
+
+.casting-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.casting-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.casting-card:hover {
+    transform: scale(1.03);
+}
+
+.casting-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.casting-details {
+    padding: 10px;
+    text-align: center;
+}
+
+.casting-details h3 {
+    margin: 0 0 10px;
+    font-size: 1rem;
+}
+
+.casting-details p {
+    margin: 0 0 10px;
+    color: #666;
+}
+
+.btn-remove-actor {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-remove-actor:hover {
+    background-color: #d32f2f;
+}

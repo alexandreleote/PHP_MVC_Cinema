@@ -9,10 +9,12 @@ class RealisateurManager {
 
         $pdo = Connect::seConnecter();
         $requeteList = $pdo->prepare(
-            "SELECT r.id_realisateur, 
-                    CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS realisateur,
-                    p.photo_personne AS photo,
-                    p.date_naissance_personne AS dateNaissance
+            "SELECT 
+                r.id_realisateur, 
+                r.id_realisateur,
+                CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS realisateur,
+                p.photo_personne AS photo,
+                p.date_naissance_personne AS dateNaissance
             FROM realisateur r
             LEFT JOIN personne p ON p.id_personne = r.id_personne
             ORDER BY p.nom_personne ");

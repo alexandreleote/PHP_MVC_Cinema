@@ -21,6 +21,11 @@ class ActeurController {
         $details = $acteurManager->getDetActeur($id);
         $filmographie = $acteurManager->getFilmographie($id);
 
+        if(!$details) {
+            header("Location: index.php");
+            exit();
+        }
+
         require "view/acteur/detailActeur.php";
     }
 
@@ -30,6 +35,11 @@ class ActeurController {
         $acteurManager = new ActeurManager();
         $details = $acteurManager->getDetActeur($id);
         $filmographie = $acteurManager->getFilmographie($id);
+
+        if(!$details) {
+            header("Location: index.php");
+            exit();
+        }
         
         require "view/acteur/editActeur.php";
     }

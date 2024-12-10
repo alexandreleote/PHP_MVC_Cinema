@@ -29,6 +29,9 @@ if(isset($_GET["action"])) {
         case "listFilms" : $ctrlCinema->listFilms(); break;
         case "detailFilm" : $ctrlCinema->detFilm($id); break;
         case "editFilm" : $ctrlCinema->modifyFilm($id); break;
+        case "updateFilm" : $ctrlCinema->updateFilm($id); break;
+        case "deleteFilm" : $ctrlCinema->deleteFilm($id); break;
+        case "removeActeurFromFilm" : $ctrlCinema->removeActeurFromFilm($id, $_GET['idActeur'] ?? null); break;
 
         /* Views Acteur */
         case "listActeurs" : $ctrlActeur->listActeurs(); break;
