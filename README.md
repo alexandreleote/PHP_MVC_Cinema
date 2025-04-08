@@ -62,7 +62,7 @@ git clone le [repo](https://github.com/alexandreleote/PHP_MVC_Cinema.git)
 
 
   \# Configuration de la base de données
-1. Démarrer XAMPP (Apache et MySQL)
+1. Démarrer Laragon (Apache et MySQL)
 2. Accéder à PhpMyAdmin (http://localhost/phpmyadmin)
 3. Créer une nouvelle base de données 'cinema_alexandre'
 4. Importer le fichier database/cinema_alexandre.sql
