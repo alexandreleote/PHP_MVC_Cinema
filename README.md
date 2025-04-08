@@ -31,7 +31,6 @@ Langages :
 
 Outils :
 - VSCode
-- XAMPP v3.3.0
 - Git/GitHub
 - HeidiSQL
 
