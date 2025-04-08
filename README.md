@@ -5,10 +5,10 @@ Vous travaillez au sein d'une web agency en tant que développeur-intégrateur w
 commande d’un client, vous vous occupez de la conception d’un wiki de films, de genres cinématographiques et d’acteurs / actrices. 
 
 ## 🎯 Objectifs pédagogiques
-Créer une interface utilisateur responsive et intuitive
-Implémenter un CRUD complet (Create, Read, Update, Delete)
-Gérer une base de données MySQL avec PHP
-Utiliser JavaScript pour des interactions dynamiques
+Créer une interface utilisateur responsive et intuitive <br>
+Implémenter un CRUD complet (Create, Read, Update, Delete) <br>
+Gérer une base de données MySQL avec PHP <br>
+Utiliser JavaScript pour des interactions dynamiques <br>
 Pratiquer l'architecture MVC
 
 ## 📝 Consignes
