@@ -14,9 +14,9 @@ ob_start();
             <div class="film-info">
                 <h1 class="film-title"><?= $details['acteur'] ?></h1>
                 <div class="film-meta detail-info-row">
-                    <span>Né<?= $details['genre'] === "Femme" ? "e" : "" ?> le <?= Utils::formatDate($details['dateNaissance'], "") ?></span>
+                    <span>Né<?= isset($details['genre']) && $details['genre'] === "Femme" ? "e" : "" ?> le <?= Utils::formatDate($details['dateNaissance'], "") ?></span>
                     <?php if (isset($details['dateMort']) && $details['dateMort']) { ?>
-                        <span>Décédé<?= $details['genre'] === "Femme" ? "e" : "" ?> le <?= Utils::formatDate($details['dateMort'], "") ?></span>
+                        <span>Décédé<?= isset($details['genre']) && $details['genre'] === "Femme" ? "e" : "" ?> le <?= Utils::formatDate($details['dateMort'], "") ?></span>
                     <?php } ?>
                     <span><?= Utils::getMetiers($details) ?></span>
                     <span>Âge : <?= Utils::getAge($details['dateNaissance'], $details['dateMort']) ?> ans</span>

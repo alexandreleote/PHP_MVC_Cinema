@@ -11,10 +11,11 @@ class ActeurManager {
         $pdo = Connect::seConnecter();
         $requeteList = $pdo->prepare(
             "SELECT 
-                p.id_personne AS id_acteur, 
+                a.id_acteur, 
                 p.prenom_personne,
                 p.nom_personne,
-                p.photo_personne AS photo_acteur,
+                CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS acteur,
+                p.photo_personne AS photo,
                 p.date_naissance_personne AS dateNaissance
             FROM personne p
             INNER JOIN acteur a ON a.id_personne = p.id_personne
@@ -37,10 +38,10 @@ class ActeurManager {
                     CONCAT(p.prenom_personne, ' ', UPPER(p.nom_personne)) AS acteur, 
                     DATE_FORMAT(p.date_naissance_personne, '%d %M %Y') AS dateNaissance,
                     DATE_FORMAT(p.date_mort_personne, '%d %M %Y') AS dateMort,
-                    genre_personne AS genre,
-                    photo_personne AS photo,
-                    bg_personne AS bg,
-                    biographie_personne AS bio
+                    p.genre_personne AS genre,
+                    p.photo_personne AS photo,
+                    p.photo_personne AS bg,
+                    'Information non disponible' AS bio
             FROM acteur a
             LEFT JOIN personne p ON p.id_personne = a.id_personne
             LEFT JOIN realisateur r ON r.id_personne = p.id_personne

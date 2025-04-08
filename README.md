@@ -98,6 +98,6 @@ Bientôt complétée
 - Manipuler une base de données
 - Sécuriser une application web
 ___
-Exercice réalisé dans le cadre de la formation [Développeur Web et Web Mobile](https://elan-formation.fr/formation/19754)
-📅 Date : 28/11/2024 - 10/12/2024
+Exercice réalisé dans le cadre de la formation [Développeur Web et Web Mobile](https://elan-formation.fr/formation/19754) <br>
+📅 Date : 28/11/2024 - 10/12/2024 <br>
 ✍️ Auteur : [Alexandre Leote](https://github.com/alexandreleote)
